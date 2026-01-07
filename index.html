@@ -1,0 +1,1742 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="OmniAct: A Benchmark for Long-Horizon Computer Use Agents">
+
+        <!--Facebook preview-->
+        <meta property="og:image" content="assets/social_card.png">
+        <meta property="og:type" content="website"/>
+        <meta property="og:url" content=""/>
+        <meta property="og:title" content="OmniAct: A Benchmark for Long-Horizon Computer Use Agents"/>
+        <meta property="og:description" content="Evaluating multimodal agents on complex, multi-step desktop workflows."/>
+
+        <!--Twitter preview-->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="OmniAct: A Benchmark for Long-Horizon Computer Use Agents" />
+        <meta name="twitter:description" content="Evaluating multimodal agents on complex, multi-step desktop workflows."/>
+        <meta name="twitter:image" content="assets/social_card.png">
+
+        <title>OSWorld-Marathon Benchmark</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+            rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+            crossorigin="anonymous">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+              crossorigin="anonymous">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css"
+              integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+
+        <style>
+            :root {
+                --primary-gradient: linear-gradient(135deg, #f18463 0%, #f36633 100%);
+                --bg-color: #0d0d0d;
+                --text-color: #f8f9fa;
+                --highlight-color: #15f8d2;
+                --highlight-color-light: #9efee6;
+            }
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+                background-color: #0d0d0d;
+                color: #f8f9fa;
+            }
+            
+            a {
+                color: var(--highlight-color);
+                text-decoration: none;
+            }
+            a:hover {
+                color: var(--highlight-color-light);
+                text-decoration: underline;
+            }
+
+            h1, h2, h3, h4, h5, h6 {
+                color: #ffffff;
+            }
+
+            .text-muted {
+                color: #9ca3af !important;
+            }
+
+            hr {
+                border-color: var(--highlight-color);
+                opacity: 0.8;
+            }
+
+            .carousel-caption {
+                background: rgba(255,255,255,0.15);
+                border-radius: 8px;
+                padding: 8px 16px;
+                bottom: 20px;
+            }
+
+            .carousel-item video, .carousel-item .placeholder-slide {
+                border-radius: 8px;
+            }
+
+            .placeholder-slide {
+                background: #1f2937;
+                min-height: 300px;
+            }
+
+            pre {
+                background: #1a1a1a;
+                color: #e5e7eb;
+                border: 1px solid #374151;
+                border-radius: 4px;
+                padding: 1rem;
+            }
+
+            .citation-container {
+                position: relative;
+            }
+
+            .citation-container pre {
+                padding-right: 3.5rem;
+            }
+
+            .copy-btn {
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                background: #374151;
+                border: 1px solid #4b5563;
+                color: #e5e7eb;
+                padding: 6px 10px;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+                transition: all 0.2s ease;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+
+            .copy-btn:hover {
+                background: #4b5563;
+                border-color: var(--highlight-color);
+                color: var(--highlight-color);
+            }
+
+            .copy-btn.copied {
+                background: #065f46;
+                border-color: #10b981;
+                color: #10b981;
+            }
+
+            .table {
+                --bs-table-bg: #1a1a1a;
+                --bs-table-color: #f8f9fa;
+                --bs-table-border-color: #374151;
+            }
+
+            .table-light {
+                --bs-table-bg: #112847;
+                --bs-table-color: #f8f9fa;
+            }
+
+            .table-primary {
+                --bs-table-bg: var(--highlight-color);
+                --bs-table-color: #f8f9fa;
+            }
+
+            .table-hover > tbody > tr:hover {
+                --bs-table-hover-bg: #252525;
+                --bs-table-hover-color: #f8f9fa;
+            }
+
+            .btn-secondary {
+                background-color: #374151;
+                border-color: #4b5563;
+                color: #f8f9fa;
+            }
+
+            .btn-secondary:hover {
+                background-color: #4b5563;
+                border-color: #6b7280;
+                color: #ffffff;
+            }
+
+            /* ==================== INTRO ANIMATION STYLES ==================== */
+            .intro-stage {
+                margin-top: 2rem;
+                background: linear-gradient(180deg, rgba(10, 20, 40, 0.95) 0%, rgba(15, 31, 50, 0.9) 100%);
+                border: 2px solid var(--highlight-color);
+                border-radius: 12px;
+                padding: 30px 25px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 580px;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .intro-stage::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: 
+                    linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+                    linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+                background-size: 30px 30px;
+                pointer-events: none;
+                z-index: 0;
+            }
+
+            .intro-stage::after {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: 
+                    radial-gradient(circle at 20% 80%, rgba(236, 72, 153, 0.08) 0%, transparent 25%),
+                    radial-gradient(circle at 80% 20%, rgba(34, 211, 238, 0.08) 0%, transparent 25%),
+                    radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 35%);
+                animation: orbFloat 20s ease-in-out infinite;
+                pointer-events: none;
+                z-index: 0;
+            }
+
+            .intro-title {
+                position: absolute;
+                top: 15px;
+                left: 20px;
+                font-family: 'Arial', sans-serif;
+                font-size: 18px;
+                font-weight: 700;
+                color: #f8f9fa;
+                text-transform: titlecase;
+                letter-spacing: 2px;
+                text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+                z-index: 20;
+                /* border-bottom: 2px solid var(--highlight-color); */
+                background-color: #011931;
+                /* padding-bottom: 5px; */
+            }
+
+            .intro-canvas {
+                position: relative;
+                width: 100%;
+                height: 400px;
+                z-index: 1;
+            }
+
+            /* Traveler (happy emoji + suitcase) */
+            .traveler {
+                position: absolute;
+                left: -150px;
+                top: 50%;
+                transform: translateY(-50%);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                opacity: 0;
+                transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+                z-index: 10;
+            }
+
+            .traveler.enter {
+                left: 60px;
+                opacity: 1;
+            }
+
+            .traveler.exit {
+                opacity: 0;
+                transform: translateY(-50%) scale(0.8);
+            }
+
+            .traveler .happy-emoji {
+                font-size: 64px;
+                filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.5));
+                animation: bounce 2s ease-in-out infinite;
+            }
+
+            .traveler.thinking .happy-emoji {
+                animation: none;
+            }
+
+            .traveler .suitcase-emoji {
+                font-size: 48px;
+                filter: drop-shadow(0 0 10px rgba(139, 92, 246, 0.5));
+            }
+
+            @keyframes bounce {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-10px); }
+            }
+
+            /* Facepalm emoji */
+            .facepalm-container {
+                position: absolute;
+                right: 60px;
+                top: 50%;
+                transform: translateY(-50%);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                opacity: 0;
+                z-index: 10;
+            }
+
+            .facepalm-container.visible {
+                opacity: 1;
+            }
+
+            .facepalm-emoji {
+                font-size: 64px;
+                filter: drop-shadow(0 0 15px rgba(236, 72, 153, 0.5));
+                animation: facepalm 1s ease-in-out;
+            }
+
+            @keyframes facepalm {
+                0% { transform: scale(0.5) rotate(-10deg); opacity: 0; }
+                50% { transform: scale(1.2) rotate(5deg); opacity: 1; }
+                100% { transform: scale(1) rotate(0deg); opacity: 1; }
+            }
+
+            /* Manga-style sweat drops */
+            .sweat-drops {
+                position: absolute;
+                top: -5px;
+                right: -15px;
+                font-size: 20px;
+                animation: sweatDrop 0.8s ease-in-out infinite;
+            }
+
+            @keyframes sweatDrop {
+                0%, 100% { transform: translateY(0); opacity: 1; }
+                50% { transform: translateY(5px); opacity: 0.6; }
+            }
+
+            /* Manga exclamation marks */
+            .manga-exclaim {
+                position: absolute;
+                font-family: 'Comic Sans MS', cursive, sans-serif;
+                font-size: 28px;
+                font-weight: bold;
+                color: #ff6b6b;
+                text-shadow: 2px 2px 0 #fff, -1px -1px 0 #000;
+                animation: exclaim 0.5s ease-in-out infinite alternate;
+            }
+
+            .manga-exclaim.exclaim-1 { top: -30px; right: 20px; }
+            .manga-exclaim.exclaim-2 { top: -20px; right: -10px; transform: rotate(15deg); }
+
+            @keyframes exclaim {
+                0% { transform: scale(1) rotate(-5deg); }
+                100% { transform: scale(1.1) rotate(5deg); }
+            }
+
+            /* Manga action lines overlay */
+            .action-lines {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                opacity: 0;
+                z-index: 20;
+                background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.1) 70%);
+                transition: opacity 0.3s ease;
+            }
+
+            .action-lines.visible {
+                opacity: 1;
+                animation: actionPulse 0.3s ease-out;
+            }
+
+            @keyframes actionPulse {
+                0% { transform: scale(0.95); }
+                100% { transform: scale(1); }
+            }
+
+            /* Manga sparkles */
+            .manga-sparkle {
+                position: absolute;
+                font-size: 16px;
+                animation: sparkleFloat 1s ease-in-out infinite;
+                pointer-events: none;
+            }
+
+            .manga-sparkle:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
+            .manga-sparkle:nth-child(2) { top: 20%; right: 20%; animation-delay: 0.3s; }
+            .manga-sparkle:nth-child(3) { bottom: 30%; left: 10%; animation-delay: 0.6s; }
+            .manga-sparkle:nth-child(4) { bottom: 20%; right: 15%; animation-delay: 0.9s; }
+
+            @keyframes sparkleFloat {
+                0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+                50% { transform: scale(1.3) rotate(180deg); opacity: 1; }
+            }
+
+            /* Manga-style speech bubble for expense system */
+            .manga-bubble {
+                position: relative;
+                background: #fff;
+                border: 3px solid #1a1a1a;
+                border-radius: 20px;
+                padding: 8px 16px;
+                font-family: 'Comic Sans MS', cursive, sans-serif;
+                font-weight: bold;
+                color: #1a1a1a;
+                box-shadow: 4px 4px 0 #1a1a1a;
+            }
+
+            .manga-bubble::after {
+                content: '';
+                position: absolute;
+                bottom: -15px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 0;
+                height: 0;
+                border-left: 10px solid transparent;
+                border-right: 10px solid transparent;
+                border-top: 15px solid #1a1a1a;
+            }
+
+            .manga-bubble::before {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 0;
+                height: 0;
+                border-left: 8px solid transparent;
+                border-right: 8px solid transparent;
+                border-top: 12px solid #fff;
+                z-index: 1;
+            }
+
+            /* Sketch-style border for intro */
+            .intro-stage {
+                border: 3px solid #1a1a1a !important;
+                box-shadow: 5px 5px 0 rgba(0,0,0,0.3);
+            }
+
+            /* Manga-style CUA title */
+            /* .cua-title {
+                font-family: 'Impact', 'Arial Black', sans-serif;
+                font-size: 32px;
+                font-weight: 900;
+                color: #1a1a1a;
+                text-shadow: 
+                    3px 3px 0 #fff,
+                    -1px -1px 0 #fff,
+                    1px -1px 0 #fff,
+                    -1px 1px 0 #fff,
+                    4px 4px 0 rgba(0,0,0,0.2);
+                letter-spacing: 2px;
+                z-index: 2;
+                animation: titlePop 0.5s ease-out;
+            } */
+
+            @keyframes titlePop {
+                0% { transform: scale(0.5); opacity: 0; }
+                70% { transform: scale(1.1); }
+                100% { transform: scale(1); opacity: 1; }
+            }
+
+            /* Receipts container */
+            .receipts-container {
+                position: absolute;
+                left: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 320px;
+                height: 300px;
+                z-index: 5;
+            }
+
+            .receipts-bubble {
+                position: absolute;
+                top: -45px;
+                left: 50%;
+                transform: translateX(-50%);
+                white-space: nowrap;
+                font-size: 13px;
+                opacity: 0;
+                transition: opacity 0.5s ease;
+                z-index: 10;
+            }
+
+            .receipts-bubble.visible {
+                opacity: 1;
+            }
+
+            /* Right arrow pointing to expense system */
+            .expense-arrow {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                opacity: 0;
+                z-index: 6;
+                transition: opacity 0.5s ease;
+            }
+
+            .expense-arrow.visible {
+                opacity: 1;
+            }
+
+            .expense-arrow svg {
+                width: 80px;
+                height: 40px;
+                filter: drop-shadow(0 0 10px rgba(244, 114, 182, 0.6));
+            }
+
+            /* Expense system container */
+            .expense-system-container {
+                position: absolute;
+                right: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+                opacity: 0;
+                z-index: 6;
+                transition: opacity 0.6s ease;
+            }
+
+            .expense-system-container.visible {
+                opacity: 1;
+            }
+
+            .expense-system-label {
+                font-family: 'Comic Sans MS', cursive, sans-serif;
+                font-size: 13px;
+                font-weight: bold;
+                letter-spacing: 0.5px;
+                margin-bottom: 10px;
+            }
+
+            .expense-system-img {
+                width: 220px;
+                height: auto;
+                border-radius: 8px;
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(34, 211, 238, 0.2);
+                border: 2px solid rgba(34, 211, 238, 0.3);
+            }
+
+            .receipt-img {
+                position: absolute;
+                width: 100px;
+                height: auto;
+                border-radius: 2px;
+                border: 2px solid #1a1a1a;
+                box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.4);
+                opacity: 0;
+                transition: all 0.6s ease;
+            }
+
+            .receipt-img.visible {
+                opacity: 1;
+            }
+
+            .receipt-img.float {
+                animation: float 3s ease-in-out infinite;
+            }
+
+            @keyframes float {
+                0%, 100% { transform: rotate(var(--rotation)) translateY(0); }
+                50% { transform: rotate(var(--rotation)) translateY(-8px); }
+            }
+
+            .receipt-img:nth-child(1) { --rotation: -5deg; top: 10px; left: 10px; width: 90px; animation-delay: 0s; }
+            .receipt-img:nth-child(2) { --rotation: 3deg; top: 0px; left: 110px; width: 120px; animation-delay: 0.4s; }
+            .receipt-img:nth-child(3) { --rotation: -2deg; top: 40px; left: 240px; width: 80px; animation-delay: 0.8s; }
+            .receipt-img:nth-child(4) { --rotation: 8deg; top: 140px; left: 30px; width: 70px; animation-delay: 1.2s; }
+            .receipt-img:nth-child(5) { --rotation: -4deg; top: 160px; left: 120px; width: 85px; animation-delay: 0.2s; }
+            .receipt-img:nth-child(6) { --rotation: 5deg; top: 130px; left: 220px; width: 90px; animation-delay: 0.6s; }
+            .receipt-img:nth-child(7) { --rotation: -6deg; top: 250px; left: 80px; width: 75px; animation-delay: 1s; }
+            .receipt-img:nth-child(8) { --rotation: 4deg; top: 240px; left: 180px; width: 80px; animation-delay: 1.4s; }
+
+            /* Robot hand (Doraemon-style) */
+            .robot-hand-container {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                z-index: 15;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 40px;
+            }
+
+            .robot-hand-container.visible {
+                opacity: 1;
+            }
+
+            /* Doraemon background for intro-stage during robot hand phase */
+            .intro-stage.doraemon-bg {
+                background: 
+                    url('examples/doraemon_transparent.png') center / 100% 100% no-repeat,
+                    linear-gradient(180deg, rgba(10, 20, 40, 0.95) 0%, rgba(15, 31, 50, 0.9) 100%);
+            }
+
+            .robot-hand-container.exit {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.9);
+                transition: all 0.8s ease;
+            }
+
+            .cua-title {
+                font-size: 3rem;
+                font-weight: 500;
+                color: var(--text-color);
+                text-align: center;
+                z-index: 2;
+            }
+
+            .robot-on-hand {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 8rem;
+                z-index: 3;
+                animation: robotBob 1s ease-in-out infinite;
+            }
+
+            @keyframes robotBob {
+                0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+                50% { transform: translate(-50%, -50%) translateY(-10px); }
+            }
+
+            /* ==================== MAIN WORKFLOW ANIMATION STYLES ==================== */
+            .teaser-stage {
+                margin-top: 2rem;
+                background: linear-gradient(180deg, rgba(10, 20, 40, 0.95) 0%, rgba(15, 31, 50, 0.9) 100%);
+                border: 2px solid;
+                border-color: var(--highlight-color);
+                border-radius: 12px;
+                padding: 30px 25px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                min-height: 580px;
+                position: relative;
+                overflow: hidden;
+                opacity: 0;
+                transition: opacity 1s ease;
+            }
+
+            .teaser-stage.visible {
+                opacity: 1;
+            }
+
+            .teaser-stage::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: 
+                    linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+                    linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+                background-size: 30px 30px;
+                pointer-events: none;
+                z-index: 0;
+            }
+
+            .teaser-stage::after {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: 
+                    radial-gradient(circle at 20% 80%, rgba(236, 72, 153, 0.08) 0%, transparent 25%),
+                    radial-gradient(circle at 80% 20%, rgba(34, 211, 238, 0.08) 0%, transparent 25%),
+                    radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 35%);
+                animation: orbFloat 20s ease-in-out infinite;
+                pointer-events: none;
+                z-index: 0;
+            }
+
+            @keyframes orbFloat {
+                0%, 100% { transform: translate(0, 0) rotate(0deg); }
+                33% { transform: translate(2%, -2%) rotate(5deg); }
+                66% { transform: translate(-2%, 2%) rotate(-5deg); }
+            }
+
+            .task-section {
+                text-align: center;
+                opacity: 0;
+                transform: translateY(-15px);
+                transition: all 0.5s ease;
+                margin-top: 12px;
+                z-index: 1;
+            }
+
+            .task-section.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .task-box {
+                background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(245, 158, 11, 0.1) 100%);
+                border: 1px solid rgba(251, 191, 36, 0.5);
+                border-radius: 8px;
+                padding: 14px 22px;
+                display: inline-block;
+                box-shadow: 
+                    0 0 20px rgba(251, 191, 36, 0.2),
+                    inset 0 0 20px rgba(251, 191, 36, 0.05);
+                backdrop-filter: blur(10px);
+            }
+
+            .task-label {
+                font-family: 'Orbitron', sans-serif;
+                font-size: 10px;
+                font-weight: 600;
+                color: #fbbf24;
+                margin-bottom: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+            }
+
+            .task-text {
+                font-family: 'Inter', sans-serif;
+                font-size: 13px;
+                font-weight: 500;
+                color: #fef3c7;
+                line-height: 1.5;
+            }
+
+            .down-arrow {
+                margin: 14px 0;
+                opacity: 0;
+                transition: opacity 0.5s ease;
+                z-index: 1;
+            }
+
+            .down-arrow.visible {
+                opacity: 1;
+            }
+
+            .down-arrow svg {
+                filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.6));
+            }
+
+            .down-arrow svg path {
+                stroke-dasharray: 100;
+                stroke-dashoffset: 100;
+                transition: stroke-dashoffset 0.8s ease;
+            }
+
+            .down-arrow.animated svg path {
+                stroke-dashoffset: 0;
+            }
+
+            .robot-section {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 12px;
+                z-index: 1;
+            }
+
+            .decompose-label {
+                font-family: 'Orbitron', sans-serif;
+                font-size: 10px;
+                font-weight: 500;
+                color: #c4b5fd;
+                opacity: 0;
+                transition: all 0.4s ease;
+                text-align: center;
+                text-shadow: 0 0 20px rgba(196, 181, 253, 0.5);
+                min-width: 200px;
+                letter-spacing: 1px;
+            }
+
+            .decompose-label.visible {
+                opacity: 1;
+            }
+
+            .decompose-label.processing {
+                color: #67e8f9;
+                text-shadow: 0 0 25px rgba(103, 232, 249, 0.7);
+                animation: labelPulse 0.8s ease-in-out infinite;
+            }
+
+            @keyframes labelPulse {
+                0%, 100% { opacity: 0.8; }
+                50% { opacity: 1; }
+            }
+
+            .robot-container {
+                position: relative;
+                opacity: 0;
+                transform: scale(0.5);
+                transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+
+            .robot-container.visible {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            .main-robot-emoji {
+                font-size: 36px;
+                display: block;
+                filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.5));
+            }
+
+            .robot-container.thinking .main-robot-emoji {
+                animation: robotThink 0.6s ease-in-out infinite;
+            }
+
+            .robot-container.working .main-robot-emoji {
+                animation: robotWork 0.4s ease-in-out infinite;
+            }
+
+            @keyframes robotThink {
+                0%, 100% { transform: rotate(-6deg); }
+                50% { transform: rotate(6deg); }
+            }
+
+            @keyframes robotWork {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.1); }
+            }
+
+            .robot-sparkle {
+                position: absolute;
+                font-size: 12px;
+                opacity: 0;
+            }
+
+            .robot-container.working .robot-sparkle {
+                animation: sparkle 0.8s ease-in-out infinite;
+            }
+
+            .robot-sparkle:nth-child(2) { top: -8px; right: -4px; animation-delay: 0s; }
+            .robot-sparkle:nth-child(3) { top: 0; left: -12px; animation-delay: 0.3s; }
+            .robot-sparkle:nth-child(4) { bottom: 0; right: -8px; animation-delay: 0.5s; }
+
+            @keyframes sparkle {
+                0%, 100% { opacity: 0; transform: scale(0); }
+                50% { opacity: 1; transform: scale(1); }
+            }
+
+            .branch-section {
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                gap: 12px;
+                margin: 8px 0 14px 0;
+                opacity: 0;
+                transition: opacity 0.5s ease;
+                z-index: 1;
+            }
+
+            .branch-section.visible {
+                opacity: 1;
+            }
+
+            .branch-arrow {
+                width: 150px;
+                height: 28px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+            }
+
+            .branch-arrow::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 50%;
+                width: 2px;
+                height: 0;
+                background: linear-gradient(to bottom, #a78bfa, #22d3ee);
+                border-radius: 1px;
+                transition: height 0.4s ease, background 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .branch-arrow::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 0;
+                height: 0;
+                border-left: 5px solid transparent;
+                border-right: 5px solid transparent;
+                border-top: 7px solid #22d3ee;
+                opacity: 0;
+                transition: opacity 0.3s ease 0.3s, border-top-color 0.3s ease, filter 0.3s ease;
+            }
+
+            .branch-section.animated .branch-arrow::before {
+                height: 20px;
+            }
+
+            .branch-section.animated .branch-arrow::after {
+                opacity: 1;
+            }
+
+            .branch-arrow.dimmed::before {
+                background: linear-gradient(to bottom, #4b5563, #374151) !important;
+                opacity: 0.4;
+            }
+
+            .branch-arrow.dimmed::after {
+                border-top-color: #374151 !important;
+                opacity: 0.4 !important;
+            }
+
+            .branch-arrow.highlighted::before {
+                background: linear-gradient(to bottom, #f472b6, #22d3ee) !important;
+                box-shadow: 0 0 12px rgba(34, 211, 238, 0.6);
+            }
+
+            .branch-arrow.highlighted::after {
+                border-top-color: #22d3ee !important;
+                filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.8));
+            }
+
+            .branch-arrow-spacer {
+                width: 35px;
+            }
+
+            .data-columns-container {
+                display: flex;
+                align-items: flex-start;
+                gap: 14px;
+                width: 100%;
+                justify-content: center;
+                z-index: 1;
+            }
+
+            .data-column {
+                display: flex;
+                flex-direction: column;
+                opacity: 0;
+                transform: translateY(20px);
+                transition: all 0.5s ease;
+            }
+
+            .data-column.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .data-column.pending {
+                opacity: 0.4;
+                filter: grayscale(0.3);
+            }
+
+            .data-column.active {
+                opacity: 1;
+                filter: none;
+            }
+
+            .data-column.completed {
+                opacity: 0.6;
+            }
+
+            .data-label {
+                font-family: 'Orbitron', sans-serif;
+                font-size: 10px;
+                font-weight: 500;
+                color: #22d3ee;
+                margin-bottom: 10px;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                text-shadow: 0 0 15px rgba(34, 211, 238, 0.5);
+                letter-spacing: 1px;
+            }
+
+            .data-label-icon {
+                font-size: 12px;
+            }
+
+            .workflow-cards {
+                display: flex;
+                flex-direction: column;
+                border: 1px solid rgba(139, 92, 246, 0.3);
+                background: rgba(15, 23, 42, 0.8);
+                border-radius: 8px;
+                width: 150px;
+                overflow: hidden;
+                box-shadow: 
+                    0 4px 20px rgba(0, 0, 0, 0.3),
+                    inset 0 0 30px rgba(139, 92, 246, 0.03);
+                backdrop-filter: blur(10px);
+            }
+
+            .workflow-card {
+                padding: 10px 10px;
+                font-size: 11px;
+                line-height: 1.4;
+                transition: all 0.4s ease;
+                position: relative;
+                border-bottom: 1px solid rgba(139, 92, 246, 0.15);
+                display: flex;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .workflow-card:last-child {
+                border-bottom: none;
+            }
+
+            .card-icon {
+                font-size: 13px;
+                flex-shrink: 0;
+            }
+
+            .card-text {
+                flex: 1;
+                font-weight: 400;
+            }
+
+            .workflow-card.pending {
+                background: transparent;
+                color: #64748b;
+            }
+
+            .workflow-card.pending .card-icon {
+                filter: grayscale(1);
+                opacity: 0.5;
+            }
+
+            .workflow-card.processing {
+                background: linear-gradient(90deg, rgba(34, 211, 238, 0.2) 0%, rgba(139, 92, 246, 0.3) 50%, rgba(34, 211, 238, 0.2) 100%);
+                background-size: 200% 100%;
+                animation: shimmer 1.2s ease-in-out infinite;
+                color: #e0f2fe;
+                border-color: rgba(34, 211, 238, 0.4);
+            }
+
+            @keyframes shimmer {
+                0% { background-position: 200% 0; }
+                100% { background-position: -200% 0; }
+            }
+
+            .workflow-card.processing .card-icon {
+                animation: iconBounce 0.5s ease-in-out infinite;
+            }
+
+            @keyframes iconBounce {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.15); }
+            }
+
+            .workflow-card.completed {
+                background: linear-gradient(135deg, rgba(168, 85, 247, 0.4) 0%, rgba(236, 72, 153, 0.3) 100%);
+                color: #fdf4ff;
+                border-color: rgba(168, 85, 247, 0.4);
+            }
+
+            .workflow-card.completed::after {
+                content: '✓';
+                position: absolute;
+                right: 8px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 11px;
+                font-weight: bold;
+                color: #67e8f9;
+                text-shadow: 0 0 10px rgba(103, 232, 249, 0.8);
+            }
+
+            .more-indicator {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                font-family: 'Orbitron', sans-serif;
+                font-size: 16px;
+                font-weight: 600;
+                color: #64748b;
+                padding: 0 10px;
+                opacity: 0;
+                transition: opacity 0.5s ease;
+                align-self: center;
+                margin-top: 25px;
+            }
+
+            .more-indicator.visible {
+                opacity: 1;
+                animation: pulse 2s ease-in-out infinite;
+            }
+
+            @keyframes pulse {
+                0%, 100% { opacity: 0.3; color: #64748b; }
+                50% { opacity: 1; color: #c4b5fd; }
+            }
+
+            .hidden {
+                display: none !important;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="row text-center">
+                <h1 class="mt-4">Reflect3r</h1>
+                <h3>Single-View 3D Stereo Reconstruction Aided by Mirror Reflections</h3>
+                <h4 class="mb-4 text-muted">3DV 2026</h4>
+            </div>
+            <div class="row text-center">
+                <div class="col-sm-0 col-md-2"></div>
+                <div class="col-sm-12 col-md-8">
+                    <h6>
+                        <a href="https://jingwu2121.github.io/" class="name-link" target="_blank">Jing Wu</a>&emsp;
+                        <a href="https://scholar.google.com/citations?user=zCBKqa8AAAAJ&hl=en" class="name-link" target="_blank">Zirui Wang</a>&emsp;
+                        <a href="https://scholar.google.com/citations?user=n9nXAPcAAAAJ&hl=en" class="name-link" target="_blank">Iro Laina</a>&emsp;
+                        <a href="https://www.robots.ox.ac.uk/~victor/" class="name-link" target="_blank">Victor Adrian Prisacariu</a>
+                    </h6>
+                    University of Oxford
+                </div>
+                <div class="col-sm-0 col-md-2"></div>
+                <div class="col-md-12 mt-3">
+                    <a href="#" class="btn btn-secondary btn-sm"><i class="ai ai-arxiv"></i>&nbsp;&nbsp;Paper</a>
+                    <a href="#" class="btn btn-secondary btn-sm"><i class="fa-brands fa-github"></i>&nbsp;&nbsp;Code</a>
+                    <a href="#" class="btn btn-secondary btn-sm"><i class="fa-solid fa-scale-balanced"></i>&nbsp;&nbsp;License</a>
+                    <a href="#" class="btn btn-secondary btn-sm">🤗&nbsp;&nbsp;HuggingFace Data</a>
+                    <a href="#citation" class="btn btn-secondary btn-sm"><i class="fa-solid fa-file"></i>&nbsp;&nbsp;BibTeX</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-0 col-md-2"></div>
+                <div class="col-sm-12 col-md-8">
+
+                    <!-- ==================== INTRO ANIMATION ==================== -->
+                    <div class="intro-stage" id="intro-stage">
+                        <div class="intro-title">Motivation</div>
+                        <div class="intro-canvas" id="intro-canvas">
+                            <!-- Traveler (happy emoji + suitcase) -->
+                            <div class="traveler" id="traveler">
+                                <span class="happy-emoji">😆</span>
+                                <span class="suitcase-emoji">🧳</span>
+                            </div>
+
+                            <!-- Facepalm emoji (appears when overwhelmed) -->
+                            <div class="facepalm-container" id="facepalm-container">
+                                <span class="facepalm-emoji">🤦</span>
+                                <span class="sweat-drops">💧</span>
+                                <span class="manga-exclaim exclaim-1">!</span>
+                                <span class="manga-exclaim exclaim-2">!</span>
+                            </div>
+
+                            <!-- Action lines overlay -->
+                            <div class="action-lines" id="action-lines"></div>
+
+                            <!-- Receipts -->
+                            <div class="receipts-container" id="receipts-container">
+                                <span class="receipts-bubble manga-bubble" id="receipts-bubble">Traveling receipts</span>
+                                <img src="examples_pngs/food_receipt.png" class="receipt-img" alt="Food Receipt">
+                                <img src="examples_pngs/hotel_receipt.png" class="receipt-img" alt="Hotel Receipt">
+                                <img src="examples_pngs/flight_receipt.png" class="receipt-img" alt="Flight Receipt">
+                                <img src="examples_pngs/taxi_receipt.png" class="receipt-img" alt="Taxi Receipt">
+                                <img src="examples_pngs/toll_receipt.png" class="receipt-img" alt="Toll Receipt">
+                                <img src="examples_pngs/parking_receipt.png" class="receipt-img" alt="Parking Receipt">
+                                <img src="examples_pngs/fuel_receipt.png" class="receipt-img" alt="Fuel Receipt">
+                                <img src="examples_pngs/car_rental.png" class="receipt-img" alt="Car Rental">
+                            </div>
+
+                            <!-- Right Arrow -->
+                            <div class="expense-arrow" id="expense-arrow">
+                                <svg viewBox="0 0 80 40" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <linearGradient id="expenseArrowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" style="stop-color:#f472b6"/>
+                                            <stop offset="100%" style="stop-color:#22d3ee"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <line x1="0" y1="20" x2="55" y2="20" stroke="url(#expenseArrowGrad)" stroke-width="4" stroke-linecap="round"/>
+                                    <polygon points="55,10 75,20 55,30" fill="#22d3ee"/>
+                                </svg>
+                            </div>
+
+                            <!-- Expense System -->
+                            <div class="expense-system-container" id="expense-system-container">
+                                <span class="expense-system-label manga-bubble">Expense system</span>
+                                <img src="examples/system.png" class="expense-system-img" alt="Expense System">
+                            </div>
+
+                            <!-- Robot Hand + Agent -->
+                            <div class="robot-hand-container" id="robot-hand-container">
+                                <!-- Title -->
+                                <div class="cua-title">Workflow Computer Use Agent</div>
+                                <span class="robot-on-hand">🤖</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ==================== MAIN WORKFLOW ANIMATION ==================== -->
+                    <div class="teaser-stage hidden" id="teaser-stage">
+                        <div class="intro-title">What is a long-horizon, repetitive task?</div>
+            
+                        <!-- Top: Task -->
+                        <div class="task-section" id="task-section">
+                            <div class="task-box">
+                                <div class="task-label">📋 TASK:</div>
+                                <div class="task-text">Do an expense report for me</div>
+                            </div>
+                        </div>
+            
+                        <!-- Down Arrow -->
+                        <div class="down-arrow" id="down-arrow">
+                            <svg width="20" height="40" viewBox="0 0 20 40">
+                                <defs>
+                                    <linearGradient id="arrowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#a78bfa"/>
+                                        <stop offset="100%" style="stop-color:#f472b6"/>
+                                    </linearGradient>
+                                </defs>
+                                <path d="M10 0 L10 30 M4 25 L10 35 L16 25" stroke="url(#arrowGrad)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+            
+                        <!-- Robot Section -->
+                        <div class="robot-section">
+                            <div class="decompose-label" id="decompose-label">⚙️ Decompose the task</div>
+                            <div class="robot-container" id="robot-container">
+                                <span class="main-robot-emoji">🤖</span>
+                                <span class="robot-sparkle">✨</span>
+                                <span class="robot-sparkle">⭐</span>
+                                <span class="robot-sparkle">💫</span>
+                            </div>
+                        </div>
+            
+                        <!-- Branch Arrows (CSS-based) -->
+                        <div class="branch-section" id="branch-section">
+                            <div class="branch-arrow"></div>
+                            <div class="branch-arrow"></div>
+                            <div class="branch-arrow"></div>
+                            <div class="branch-arrow-spacer"></div>
+                        </div>
+            
+                        <!-- Data Columns -->
+                        <div class="data-columns-container">
+                            
+                            <!-- Data1 -->
+                            <div class="data-column" id="column-1">
+                                <div class="data-label"><span class="data-label-icon">📁</span> Sub-Workflow 1 <br>(Data Unit 1)</div>
+                                <div class="workflow-cards">
+                                    <div class="workflow-card pending">
+                                        <span class="card-icon">🔍</span>
+                                        <span class="card-text">Identify the required data</span>
+                                    </div>
+                                    <div class="workflow-card pending">
+                                        <span class="card-icon">📖</span>
+                                        <span class="card-text">Understand and find the required information from data</span>
+                                    </div>
+                                    <div class="workflow-card pending">
+                                        <span class="card-icon">✏️</span>
+                                        <span class="card-text">Fill the form</span>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- Data2 -->
+                            <div class="data-column" id="column-2">
+                                <div class="data-label"><span class="data-label-icon">📁</span> Sub-Workflow 2 <br>(Data Unit 2)</div>
+                                <div class="workflow-cards">
+                                    <div class="workflow-card pending">
+                                        <span class="card-icon">🔍</span>
+                                        <span class="card-text">Identify the required data</span>
+                                    </div>
+                                    <div class="workflow-card pending">
+                                        <span class="card-icon">📖</span>
+                                        <span class="card-text">Understand and find the required information from data</span>
+                                    </div>
+                                    <div class="workflow-card pending">
+                                        <span class="card-icon">✏️</span>
+                                        <span class="card-text">Fill the form</span>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- Data3 -->
+                            <div class="data-column" id="column-3">
+                                <div class="data-label"><span class="data-label-icon">📁</span> Sub-Workflow 3 <br>(Data Unit 3)</div>
+                                <div class="workflow-cards">
+                                    <div class="workflow-card pending">
+                                        <span class="card-icon">🔍</span>
+                                        <span class="card-text">Identify the required data</span>
+                                    </div>
+                                    <div class="workflow-card pending">
+                                        <span class="card-icon">📖</span>
+                                        <span class="card-text">Understand and find the required information from data</span>
+                                    </div>
+                                    <div class="workflow-card pending">
+                                        <span class="card-icon">✏️</span>
+                                        <span class="card-text">Fill the form</span>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <!-- More indicator -->
+                            <div class="more-indicator" id="more-indicator">
+                                <span>...</span>
+                            </div>
+            
+                        </div>
+            
+                    </div>
+                    <p class="text-center text-muted mt-2 small"><em>Figure 1: OSWorld-Marathon agents handle complex, long-horizon tasks with multiple data units.</em></p>
+
+                    <h3 class="mt-4">Abstract</h3>
+                    <hr/>
+                    <p style="text-align: justify;">
+                        Long-horizon, repetitive workflows are common in professional settings, such as processing expense reports from receipts and entering student grades from exam papers.
+                        These tasks are often tedious for humans since they can extend to extreme lengths proportional to the size of the data to process. 
+                        However, they are ideal for Computer-Use Agents (CUAs) due to their structured, recurring sub-workflows with logic that can be systematically learned. 
+                        Identifying the absence of an evaluation benchmark as a primary bottleneck, we establish OSWorld-Marathon, comprising 252 long-horizon, repetitive tasks across 2 domains to evaluate state-of-the-art (SOTA) agents.
+                        We then introduce a cost-effective method to construct a condensed demonstration using only few-shot examples to teach agents the underlying workflow logic, enabling them to execute similar workflows effectively on larger, unseen data collections. 
+                        Extensive experiments demonstrate both the inherent challenges of these tasks and the effectiveness of our proposed method.
+                        
+                    </p>
+
+                    <h3 class="mt-4">Task Workflow Visualization</h3>
+                    <hr/>
+
+                    <p>
+                        We visualize the agent's execution process across different workflow categories.
+                        <b>Use the controls to switch between examples.</b>
+                    </p>
+
+                    <div id="agentResults" class="carousel slide" data-bs-ride="false">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#agentResults" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#agentResults" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#agentResults" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="ratio ratio-16x9 placeholder-slide d-flex align-items-center justify-content-center text-white rounded">
+                                    <div class="text-center">
+                                        <i class="fa-solid fa-plane fa-3x mb-3"></i><br>
+                                        Flight Booking & Itinerary Planning
+                                    </div>
+                                </div>
+                                <div class="carousel-caption">
+                                    <h5>Web Agent: Travel Planning</h5>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="ratio ratio-16x9 placeholder-slide d-flex align-items-center justify-content-center text-white rounded">
+                                    <div class="text-center">
+                                        <i class="fa-solid fa-file-excel fa-3x mb-3"></i><br>
+                                        Spreadsheet Data Entry
+                                    </div>
+                                </div>
+                                <div class="carousel-caption">
+                                    <h5>Desktop Agent: Excel Automation</h5>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="ratio ratio-16x9 placeholder-slide d-flex align-items-center justify-content-center text-white rounded">
+                                    <div class="text-center">
+                                        <i class="fa-brands fa-ubuntu fa-3x mb-3"></i><br>
+                                        Terminal & System Config
+                                    </div>
+                                </div>
+                                <div class="carousel-caption">
+                                    <h5>OS Agent: Linux Administration</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#agentResults" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#agentResults" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+
+                    <h3 class="mt-4">Data Sample Visualization</h3>
+                    <hr/>
+
+                    <h3 class="mt-4">Synthetic Data Generation Visualization</h3>
+                    <hr/>
+
+                    <h3 class="mt-4">Interactive Environment Visualization</h3>
+                    <hr/>                   
+
+                    
+
+                    <h3 class="mt-5">Methodology</h3>
+                    <hr/>
+                    <img src="https://via.placeholder.com/1200x600/e0e7ff/6366f1?text=Agent+Architecture+Diagram" class="w-100 rounded mb-3" alt="Method Diagram">
+                    <p>
+                        <b>Architecture:</b> The agent operates in a closed loop of Observation (Screenshot + Accessibility Tree), Thought (Chain-of-Thought reasoning), and Action (Keyboard/Mouse primitives). We utilize a hierarchical planner to decompose long-horizon goals into executable sub-routines.
+                    </p>
+
+                    <h3 class="mt-5">Performance Comparison</h3>
+                    <hr/>
+                    <p>We evaluate state-of-the-art VLMs on the OmniAct test set. <b>OmniAct-Agent</b> (Ours) achieves superior success rates on tasks requiring >10 steps.</p>
+                    
+                    <table class="table table-hover mt-4">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Model</th>
+                                <th>Success Rate (%)</th>
+                                <th>Avg Steps</th>
+                                <th>Error Recovery</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>GPT-4o (Zero-shot)</td>
+                                <td>42.5%</td>
+                                <td>12.4</td>
+                                <td>15%</td>
+                            </tr>
+                            <tr>
+                                <td>Claude 3.5 Sonnet</td>
+                                <td>48.2%</td>
+                                <td>11.8</td>
+                                <td>22%</td>
+                            </tr>
+                            <tr class="table-primary fw-bold">
+                                <td>OmniAct (Ours)</td>
+                                <td>64.8%</td>
+                                <td>10.2</td>
+                                <td>45%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3 class="mt-5">Acknowledgements</h3>
+                    <hr/>
+                    <p style="text-align: justify;">
+                        This work was conducted during an internship at Microsoft; we thank Microsoft Research and the Windows 365 team for their support. We also thank the authors of the <a href="https://github.com/xlang-ai/OSWorld" target="_blank">OSWorld benchmark</a> for their open-source infrastructure, which served as a foundation for this project.
+                    </p>
+
+                    <h3 class="mt-5" id="citation">Citation</h3>
+                    <hr/>
+                    <div class="citation-container mb-5">
+                        <button class="copy-btn" id="copy-citation-btn" onclick="copyCitation()">
+                            📄
+                        </button>
+                        <pre class="w-100 user-select-all font-monospace mb-0" id="citation-text">@article{wu2026osworld-marathon,
+        title={OSWorld-Marathon: Benchmarking Computer-Use Agents on Long-Horizon Repetitive Tasks},
+        author={Wu, Jing and Barretto, Daphne and Chen, Yiye and Gydé, Nicholas  and Jian, Yanan and He, Yuhang and Vineet, Vibhav},
+        journal={arXiv},
+        year={2026}
+}</pre>
+                    </div>
+
+                    <footer class="text-center py-4 mt-5" style="border-top: 1px solid var(--highlight-color); color: #f8f9fa;">
+                        <p class="mb-0">OSWorld-Marathon &copy; 2025 All rights reserved.</p>
+                    </footer>
+
+                </div>
+                <div class="col-sm-0 col-md-2"></div>
+                
+            </div>
+            
+        </div>
+
+        
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+
+        <script>
+            // Copy citation to clipboard
+            function copyCitation() {
+                const citationText = document.getElementById('citation-text').innerText;
+                navigator.clipboard.writeText(citationText).then(() => {
+                    const btn = document.getElementById('copy-citation-btn');
+                    const originalHTML = btn.innerHTML;
+                    btn.innerHTML = '<i class="fa-solid fa-check"></i><span>Copied!</span>';
+                    btn.classList.add('copied');
+                    setTimeout(() => {
+                        btn.innerHTML = originalHTML;
+                        btn.classList.remove('copied');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                    const textArea = document.createElement('textarea');
+                    textArea.value = citationText;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                });
+            }
+
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
+            // ==================== INTRO ANIMATION ====================
+            document.addEventListener("DOMContentLoaded", async () => {
+                const introStage = document.getElementById('intro-stage');
+                const teaserStage = document.getElementById('teaser-stage');
+                const traveler = document.getElementById('traveler');
+                const facepalmContainer = document.getElementById('facepalm-container');
+                const receiptsContainer = document.getElementById('receipts-container');
+                const receiptImgs = receiptsContainer.querySelectorAll('.receipt-img');
+                const receiptsBubble = document.getElementById('receipts-bubble');
+                const expenseArrow = document.getElementById('expense-arrow');
+                const expenseSystemContainer = document.getElementById('expense-system-container');
+                const robotHandContainer = document.getElementById('robot-hand-container');
+                const actionLines = document.getElementById('action-lines');
+                const mangaSparkles = document.querySelectorAll('.manga-sparkle');
+
+                // Run intro animation
+                await runIntroAnimation();
+
+                async function runIntroAnimation() {
+                    // Phase 1: Traveler enters from left
+                    await sleep(500);
+                    traveler.classList.add('enter');
+
+                    // Phase 2: Receipts fade in with floating
+                    await sleep(800);
+                    receiptsBubble.classList.add('visible');
+                    for (let i = 0; i < receiptImgs.length; i++) {
+                        setTimeout(() => {
+                            receiptImgs[i].classList.add('visible');
+                            receiptImgs[i].classList.add('float');
+                        }, i * 150);
+                    }
+
+                    // Phase 2.5: Arrow and expense system appear
+                    await sleep(1200);
+                    expenseArrow.classList.add('visible');
+                    await sleep(400);
+                    expenseSystemContainer.classList.add('visible');
+
+                    // Phase 3: Traveler becomes confused, switches to facepalm
+                    await sleep(1500);
+                    traveler.classList.add('exit');
+                    actionLines.classList.add('visible');
+                    await sleep(400);
+                    traveler.style.display = 'none';
+                    facepalmContainer.classList.add('visible');
+
+                    // Phase 4: Everything fades out
+                    await sleep(1500);
+                    actionLines.classList.remove('visible');
+                    receiptsBubble.classList.remove('visible');
+                    receiptImgs.forEach(img => {
+                        img.classList.remove('visible');
+                        img.classList.remove('float');
+                    });
+                    expenseArrow.classList.remove('visible');
+                    expenseSystemContainer.classList.remove('visible');
+                    facepalmContainer.classList.remove('visible');
+
+                    // Phase 5: Robot hand and agent fade in with doraemon background
+                    await sleep(600);
+                    introStage.classList.add('doraemon-bg');
+                    await sleep(100);
+                    robotHandContainer.classList.add('visible');
+
+                    // Phase 6: Hold for a moment, then transition
+                    await sleep(3000);
+                    robotHandContainer.classList.add('exit');
+
+                    // Phase 7: Fade out intro, show main animation
+                    await sleep(800);
+                    introStage.style.opacity = '0';
+                    introStage.style.transition = 'opacity 0.8s ease';
+                    
+                    await sleep(800);
+                    introStage.classList.remove('doraemon-bg');
+                    introStage.classList.add('hidden');
+                    teaserStage.classList.remove('hidden');
+                    teaserStage.classList.add('visible');
+
+                    // Start the main workflow animation (loops forever)
+                    await sleep(500);
+                    runMainAnimation();
+                }
+            });
+
+            // ==================== MAIN WORKFLOW ANIMATION (LOOPS) ====================
+            function runMainAnimation() {
+                const taskSection = document.getElementById('task-section');
+                const downArrow = document.getElementById('down-arrow');
+                const decomposeLabel = document.getElementById('decompose-label');
+                const robotContainer = document.getElementById('robot-container');
+                const branchSection = document.getElementById('branch-section');
+                const columns = [
+                    document.getElementById('column-1'),
+                    document.getElementById('column-2'),
+                    document.getElementById('column-3')
+                ];
+                const moreIndicator = document.getElementById('more-indicator');
+                const branchArrows = branchSection.querySelectorAll('.branch-arrow');
+
+                async function runAnimation() {
+                    // Phase 1: Task appears
+                    await sleep(300);
+                    taskSection.classList.add('visible');
+
+                    // Phase 2: Down arrow
+                    await sleep(500);
+                    downArrow.classList.add('visible');
+                    await sleep(100);
+                    downArrow.classList.add('animated');
+
+                    // Phase 3: Decompose label and robot
+                    await sleep(500);
+                    decomposeLabel.classList.add('visible');
+                    await sleep(200);
+                    robotContainer.classList.add('visible');
+                    robotContainer.classList.add('thinking');
+
+                    // Phase 4: Branch arrows
+                    await sleep(800);
+                    robotContainer.classList.remove('thinking');
+                    robotContainer.classList.add('working');
+                    branchSection.classList.add('visible');
+                    await sleep(100);
+                    branchSection.classList.add('animated');
+
+                    // Phase 5: Show all columns
+                    await sleep(500);
+                    columns.forEach((col, i) => {
+                        setTimeout(() => {
+                            col.classList.add('visible');
+                            col.classList.add('pending');
+                        }, i * 150);
+                    });
+
+                    await sleep(600);
+                    moreIndicator.classList.add('visible');
+
+                    // Phase 6: Start processing cycle
+                    await sleep(500);
+                    runProcessingCycle();
+                }
+
+                async function processColumn(columnIndex) {
+                    const column = columns[columnIndex];
+                    const cards = column.querySelectorAll('.workflow-card');
+                    const dataName = `Sub-Workflow ${columnIndex + 1} <br>(Data Unit ${columnIndex + 1})`;
+
+                    decomposeLabel.innerHTML = `🔄 Processing ${dataName}`;
+                    decomposeLabel.classList.add('processing');
+                    robotContainer.classList.add('working');
+
+                    columns.forEach((col, i) => {
+                        if (i === columnIndex) {
+                            col.classList.remove('pending', 'completed');
+                            col.classList.add('active');
+                        } else if (i < columnIndex) {
+                            col.classList.remove('pending', 'active');
+                            col.classList.add('completed');
+                        } else {
+                            col.classList.remove('active', 'completed');
+                            col.classList.add('pending');
+                        }
+                    });
+
+                    branchArrows.forEach((arrow, i) => {
+                        if (i === columnIndex) {
+                            arrow.classList.remove('dimmed');
+                            arrow.classList.add('highlighted');
+                        } else {
+                            arrow.classList.remove('highlighted');
+                            arrow.classList.add('dimmed');
+                        }
+                    });
+
+                    for (let i = 0; i < cards.length; i++) {
+                        const card = cards[i];
+                        card.classList.remove('pending');
+                        card.classList.add('processing');
+                        await sleep(600);
+                        card.classList.remove('processing');
+                        card.classList.add('completed');
+                        await sleep(150);
+                    }
+
+                    await sleep(300);
+                }
+
+                function resetAllElements() {
+                    taskSection.classList.remove('visible');
+                    downArrow.classList.remove('visible', 'animated');
+                    decomposeLabel.innerHTML = '⚙️ Decompose the task';
+                    decomposeLabel.classList.remove('visible', 'processing');
+                    robotContainer.classList.remove('visible', 'thinking', 'working');
+                    branchSection.classList.remove('visible', 'animated');
+                    branchArrows.forEach(arrow => {
+                        arrow.classList.remove('highlighted', 'dimmed');
+                    });
+                    columns.forEach(col => {
+                        col.classList.remove('visible', 'pending', 'active', 'completed');
+                    });
+                    document.querySelectorAll('.workflow-card').forEach(card => {
+                        card.classList.remove('processing', 'completed');
+                        card.classList.add('pending');
+                    });
+                    moreIndicator.classList.remove('visible');
+                }
+
+                async function runProcessingCycle() {
+                    await processColumn(0);
+                    await processColumn(1);
+                    await processColumn(2);
+
+                    columns.forEach(col => {
+                        col.classList.remove('active', 'pending');
+                        col.classList.add('completed');
+                    });
+
+                    branchArrows.forEach(arrow => {
+                        arrow.classList.remove('dimmed');
+                        arrow.classList.add('highlighted');
+                    });
+
+                    decomposeLabel.innerHTML = '✅ All sub-workflows processed';
+                    decomposeLabel.classList.remove('processing');
+                    robotContainer.classList.remove('working');
+
+                    await sleep(1500);
+                    resetAllElements();
+                    await sleep(600);
+                    runAnimation();
+                }
+
+                runAnimation();
+            }
+        </script>
+    </body>
+</html>

@@ -1,1 +1,77 @@
-webpage
+<p align="center">
+  
+  <h1 align="center"><strong>[3DV 2026] Reflect3r: Single-View 3D Stereo Reconstruction Aided by Mirror Reflections</strong></h3>
+
+  <p align="center">
+    <a href="https://jingwu2121.github.io/" class="name-link" target="_blank">Jing Wu</a>,
+    <a href="https://scholar.google.com/citations?user=zCBKqa8AAAAJ&hl=en" class="name-link" target="_blank">Zirui Wang</a>,
+    <a href="https://scholar.google.com/citations?user=n9nXAPcAAAAJ&hl=en" class="name-link" target="_blank">Iro Laina</a>,
+    <a href="https://www.robots.ox.ac.uk/~victor/" class="name-link" target="_blank">Victor Adrian Prisacariu</a>
+    <br>
+    University of Oxford
+</p>
+
+<div align="center">
+
+[![Badge with Logo](https://img.shields.io/badge/arXiv-2509.20607v1-red?logo=arxiv)
+](https://arxiv.org/abs/2509.20607v1)
+[![Badge with Logo](https://img.shields.io/badge/Project-Page-blue?logo=homepage)]()
+[![Hugging Face Dataset](https://img.shields.io/badge/Hugging%20Face-Dataset-ffd21e?logo=huggingface&logoColor=yellow)](https://huggingface.co/datasets/jinggogogo/reflect3r_synthetic_data)
+[![Badge with Logo](https://img.shields.io/badge/MIT-License-green)](LICENSE)
+</div>
+
+<div style="background-color: white; display: inline-block; padding: 10px;">
+  <img src="./assets/teaser.webp" alt="teaser">
+</div>
+
+## Abstract
+Mirror reflections are common in everyday environments and can provide stereo information within a single capture, as the real and reflected virtual views are visible simultaneously.
+We exploit this property by treating the reflection as an auxiliary view and designing a transformation that constructs a physically valid virtual camera, allowing direct pixel-domain generation of the virtual view while adhering to the real-world imaging process.
+This enables a multi-view stereo setup from a single image, simplifying the imaging process, making it compatible with powerful feed-forward reconstruction models for generalizable and robust 3D reconstruction.
+To further exploit the geometric symmetry introduced by mirrors, we propose a symmetric-aware loss to refine pose estimation.
+Our framework also naturally extends to dynamic scenes, where each frame contains a mirror reflection, enabling efficient per-frame geometry recovery.
+For quantitative evaluation, we provide a fully customizable synthetic dataset of 16 Blender scenes, each with ground-truth point clouds and camera poses.
+Extensive experiments on real-world data and synthetic data are conducted to illustrate the effectiveness of our method. 
+
+## <img src="https://api.iconify.design/vscode-icons:file-type-json.svg" alt="citation" width="20" height="20"> Citation
+If you find this code or find the paper useful for your research, please consider citing:
+```
+@article{wu2024reflect3r,
+author = {Wu, Jing and Wang, Zirui and Laina, Iro and Prisacariu, Victor},
+title = {{Reflect3r: Single-View 3D Stereo Reconstruction Aided by Mirror Reflections}},
+journal = {3DV},
+year = {2024},
+}
+```
+
+## <img src="https://api.iconify.design/material-icon-theme:settings.svg" alt="settings" width="20" height="20" > Installation
+
+## <img src="https://api.iconify.design/skill-icons:blender-light.svg" alt="database" width="20" height="20"> Synthetic Evaluation Data
+
+![dataset previews](./assets/dataset.webp)
+
+We built a collection of synthetic Blender scenes containing mirror reflections to evaluate single-view stereo reconstruction in the context of mirror. 
+
+Download our synthetic evaluation data [here](https://huggingface.co/datasets/jinggogogo/reflect3r_synthetic_data). 
+- Download the [original blender scenes](https://huggingface.co/datasets/jinggogogo/reflect3r_synthetic_data/tree/main/blender_source_files)
+- Download the processed data:
+
+The 16 Blender scenes are collected from online websites, we rearranged and cleaned the scenes and modelled a mirror on top of them for research purpose. Here we listed all the original download links for these scenes, we thank these designers for their great work.
+- Archiviz: https://download.blender.org/demo/cycles/flat-archiviz.blend
+- Bedroom: https://www.cgtrader.com/free-3d-models/interior/bedroom/the-bed-room
+- Blue bathroom: https://www.blenderkit.com/asset-gallery-detail/b6876684-5516-4973-b4a4-e500c49899b6/
+- Computer room: https://www.cgtrader.com/free-3d-models/interior/interior-office/a-room-9e4a1359-ef9d-460e-9091-b78c36961e09
+- Cozy living room: https://www.blenderkit.com/asset-gallery-detail/a9267e7e-7cd7-4d5d-b479-8bf8fff2eddf/
+- Greenhouse: https://www.blenderkit.com/asset-gallery-detail/751fbc52-ab6e-475a-b9e0-6ee99a8f45bb/
+- Gym: https://www.cgtrader.com/free-3d-models/architectural/other/high-quality-modern-indoor-gym
+- Livingroom contemporary: https://www.cgtrader.com/free-3d-models/interior/living-room/living-room-contemporary-57e8df25-0df2-4080-99ea-e2e7f0a7bb7a
+- Loft: https://www.cgtrader.com/free-3d-models/interior/living-room/project-b-54e79cb8-6763-471e-9d42-1e7e6cf01e14
+- MiniGym: https://www.cgtrader.com/free-3d-models/interior/other/mini-gym-blender-scene
+- Minimal interior: https://www.blenderkit.com/asset-gallery-detail/c675b544-6e32-42fd-b840-f2fdd964f610/
+- Modern living room: https://www.cgtrader.com/free-3d-models/interior/living-room/modern-living-room-1179d95e-c242-4ff2-b1b9-85f7373c139e
+- Livingroom: https://www.cgtrader.com/free-3d-models/interior/living-room/living-room-interior-for-blender-cycles-ready
+- Scandinavian: https://www.cgtrader.com/free-3d-models/interior/other/free-dining-set-scandinavian-style
+- Sunlight: https://www.cgtrader.com/free-3d-models/interior/living-room/sunlight-and-concrete-blender-interior
+- Terrazzo: https://www.blenderkit.com/asset-gallery-detail/893df9db-a9e4-46da-9d4a-06be1045d73b/
+
+
