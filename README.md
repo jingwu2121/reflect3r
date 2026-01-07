@@ -56,6 +56,11 @@ Download our synthetic evaluation data [here](https://huggingface.co/datasets/ji
 - Download the [original blender scenes](https://huggingface.co/datasets/jinggogogo/reflect3r_synthetic_data/tree/main/blender_source_files)
 - Download the processed data:
 
+## Acknowledgement
+
+Our Code is built upon: 
+- DUSt3R: https://github.com/naver/dust3r
+
 The 16 Blender scenes are collected from online websites, we rearranged and cleaned the scenes and modelled a mirror on top of them for research purpose. Here we listed all the original download links for these scenes, we thank these designers for their great work.
 - Archiviz: https://download.blender.org/demo/cycles/flat-archiviz.blend
 - Bedroom: https://www.cgtrader.com/free-3d-models/interior/bedroom/the-bed-room

@@ -3,22 +3,22 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="OmniAct: A Benchmark for Long-Horizon Computer Use Agents">
+        <meta name="description" content="Reflect3r: Single-View 3D Stereo Reconstruction Aided by Mirror Reflections">
 
         <!--Facebook preview-->
         <meta property="og:image" content="assets/social_card.png">
         <meta property="og:type" content="website"/>
         <meta property="og:url" content=""/>
-        <meta property="og:title" content="OmniAct: A Benchmark for Long-Horizon Computer Use Agents"/>
-        <meta property="og:description" content="Evaluating multimodal agents on complex, multi-step desktop workflows."/>
+        <meta property="og:title" content="Reflect3r: Single-View 3D Stereo Reconstruction Aided by Mirror Reflections"/>
+        <meta property="og:description" content="Single-View 3D Stereo Reconstruction Aided by Mirror Reflections"/>
 
         <!--Twitter preview-->
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="OmniAct: A Benchmark for Long-Horizon Computer Use Agents" />
-        <meta name="twitter:description" content="Evaluating multimodal agents on complex, multi-step desktop workflows."/>
+        <meta name="twitter:title" content="Reflect3r: Single-View 3D Stereo Reconstruction Aided by Mirror Reflections" />
+        <meta name="twitter:description" content="Single-View 3D Stereo Reconstruction Aided by Mirror Reflections"/>
         <meta name="twitter:image" content="assets/social_card.png">
 
-        <title>OSWorld-Marathon Benchmark</title>
+        <title>Reflect3r: Single-View 3D Stereo Reconstruction Aided by Mirror Reflections</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
             rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
             crossorigin="anonymous">
@@ -32,14 +32,14 @@
         <style>
             :root {
                 --primary-gradient: linear-gradient(135deg, #f18463 0%, #f36633 100%);
-                --bg-color: #0d0d0d;
+                --bg-color: #111425;
                 --text-color: #f8f9fa;
-                --highlight-color: #15f8d2;
+                --highlight-color: #f8de15;
                 --highlight-color-light: #9efee6;
             }
             body {
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-                background-color: #0d0d0d;
+                background-color: var(--bg-color);
                 color: #f8f9fa;
             }
             
@@ -625,55 +625,11 @@
             /* ==================== MAIN WORKFLOW ANIMATION STYLES ==================== */
             .teaser-stage {
                 margin-top: 2rem;
-                background: linear-gradient(180deg, rgba(10, 20, 40, 0.95) 0%, rgba(15, 31, 50, 0.9) 100%);
-                border: 2px solid;
-                border-color: var(--highlight-color);
-                border-radius: 12px;
-                padding: 30px 25px;
                 display: flex;
-                flex-direction: column;
                 align-items: center;
-                min-height: 580px;
-                position: relative;
-                overflow: hidden;
-                opacity: 0;
-                transition: opacity 1s ease;
+                width: 100%;
             }
 
-            .teaser-stage.visible {
-                opacity: 1;
-            }
-
-            .teaser-stage::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: 
-                    linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px),
-                    linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px);
-                background-size: 30px 30px;
-                pointer-events: none;
-                z-index: 0;
-            }
-
-            .teaser-stage::after {
-                content: '';
-                position: absolute;
-                top: -50%;
-                left: -50%;
-                width: 200%;
-                height: 200%;
-                background: 
-                    radial-gradient(circle at 20% 80%, rgba(236, 72, 153, 0.08) 0%, transparent 25%),
-                    radial-gradient(circle at 80% 20%, rgba(34, 211, 238, 0.08) 0%, transparent 25%),
-                    radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 35%);
-                animation: orbFloat 20s ease-in-out infinite;
-                pointer-events: none;
-                z-index: 0;
-            }
 
             @keyframes orbFloat {
                 0%, 100% { transform: translate(0, 0) rotate(0deg); }
@@ -1135,196 +1091,44 @@
                 <div class="col-sm-0 col-md-2"></div>
                 <div class="col-sm-12 col-md-8">
 
-                    <!-- ==================== INTRO ANIMATION ==================== -->
-                    <div class="intro-stage" id="intro-stage">
-                        <div class="intro-title">Motivation</div>
-                        <div class="intro-canvas" id="intro-canvas">
-                            <!-- Traveler (happy emoji + suitcase) -->
-                            <div class="traveler" id="traveler">
-                                <span class="happy-emoji">😆</span>
-                                <span class="suitcase-emoji">🧳</span>
-                            </div>
-
-                            <!-- Facepalm emoji (appears when overwhelmed) -->
-                            <div class="facepalm-container" id="facepalm-container">
-                                <span class="facepalm-emoji">🤦</span>
-                                <span class="sweat-drops">💧</span>
-                                <span class="manga-exclaim exclaim-1">!</span>
-                                <span class="manga-exclaim exclaim-2">!</span>
-                            </div>
-
-                            <!-- Action lines overlay -->
-                            <div class="action-lines" id="action-lines"></div>
-
-                            <!-- Receipts -->
-                            <div class="receipts-container" id="receipts-container">
-                                <span class="receipts-bubble manga-bubble" id="receipts-bubble">Traveling receipts</span>
-                                <img src="examples_pngs/food_receipt.png" class="receipt-img" alt="Food Receipt">
-                                <img src="examples_pngs/hotel_receipt.png" class="receipt-img" alt="Hotel Receipt">
-                                <img src="examples_pngs/flight_receipt.png" class="receipt-img" alt="Flight Receipt">
-                                <img src="examples_pngs/taxi_receipt.png" class="receipt-img" alt="Taxi Receipt">
-                                <img src="examples_pngs/toll_receipt.png" class="receipt-img" alt="Toll Receipt">
-                                <img src="examples_pngs/parking_receipt.png" class="receipt-img" alt="Parking Receipt">
-                                <img src="examples_pngs/fuel_receipt.png" class="receipt-img" alt="Fuel Receipt">
-                                <img src="examples_pngs/car_rental.png" class="receipt-img" alt="Car Rental">
-                            </div>
-
-                            <!-- Right Arrow -->
-                            <div class="expense-arrow" id="expense-arrow">
-                                <svg viewBox="0 0 80 40" xmlns="http://www.w3.org/2000/svg">
-                                    <defs>
-                                        <linearGradient id="expenseArrowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                                            <stop offset="0%" style="stop-color:#f472b6"/>
-                                            <stop offset="100%" style="stop-color:#22d3ee"/>
-                                        </linearGradient>
-                                    </defs>
-                                    <line x1="0" y1="20" x2="55" y2="20" stroke="url(#expenseArrowGrad)" stroke-width="4" stroke-linecap="round"/>
-                                    <polygon points="55,10 75,20 55,30" fill="#22d3ee"/>
-                                </svg>
-                            </div>
-
-                            <!-- Expense System -->
-                            <div class="expense-system-container" id="expense-system-container">
-                                <span class="expense-system-label manga-bubble">Expense system</span>
-                                <img src="examples/system.png" class="expense-system-img" alt="Expense System">
-                            </div>
-
-                            <!-- Robot Hand + Agent -->
-                            <div class="robot-hand-container" id="robot-hand-container">
-                                <!-- Title -->
-                                <div class="cua-title">Workflow Computer Use Agent</div>
-                                <span class="robot-on-hand">🤖</span>
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- ==================== MAIN WORKFLOW ANIMATION ==================== -->
-                    <div class="teaser-stage hidden" id="teaser-stage">
-                        <div class="intro-title">What is a long-horizon, repetitive task?</div>
-            
-                        <!-- Top: Task -->
-                        <div class="task-section" id="task-section">
-                            <div class="task-box">
-                                <div class="task-label">📋 TASK:</div>
-                                <div class="task-text">Do an expense report for me</div>
-                            </div>
-                        </div>
-            
-                        <!-- Down Arrow -->
-                        <div class="down-arrow" id="down-arrow">
-                            <svg width="20" height="40" viewBox="0 0 20 40">
-                                <defs>
-                                    <linearGradient id="arrowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                                        <stop offset="0%" style="stop-color:#a78bfa"/>
-                                        <stop offset="100%" style="stop-color:#f472b6"/>
-                                    </linearGradient>
-                                </defs>
-                                <path d="M10 0 L10 30 M4 25 L10 35 L16 25" stroke="url(#arrowGrad)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </div>
-            
-                        <!-- Robot Section -->
-                        <div class="robot-section">
-                            <div class="decompose-label" id="decompose-label">⚙️ Decompose the task</div>
-                            <div class="robot-container" id="robot-container">
-                                <span class="main-robot-emoji">🤖</span>
-                                <span class="robot-sparkle">✨</span>
-                                <span class="robot-sparkle">⭐</span>
-                                <span class="robot-sparkle">💫</span>
-                            </div>
-                        </div>
-            
-                        <!-- Branch Arrows (CSS-based) -->
-                        <div class="branch-section" id="branch-section">
-                            <div class="branch-arrow"></div>
-                            <div class="branch-arrow"></div>
-                            <div class="branch-arrow"></div>
-                            <div class="branch-arrow-spacer"></div>
-                        </div>
-            
-                        <!-- Data Columns -->
-                        <div class="data-columns-container">
-                            
-                            <!-- Data1 -->
-                            <div class="data-column" id="column-1">
-                                <div class="data-label"><span class="data-label-icon">📁</span> Sub-Workflow 1 <br>(Data Unit 1)</div>
-                                <div class="workflow-cards">
-                                    <div class="workflow-card pending">
-                                        <span class="card-icon">🔍</span>
-                                        <span class="card-text">Identify the required data</span>
-                                    </div>
-                                    <div class="workflow-card pending">
-                                        <span class="card-icon">📖</span>
-                                        <span class="card-text">Understand and find the required information from data</span>
-                                    </div>
-                                    <div class="workflow-card pending">
-                                        <span class="card-icon">✏️</span>
-                                        <span class="card-text">Fill the form</span>
-                                    </div>
-                                </div>
-                            </div>
-            
-                            <!-- Data2 -->
-                            <div class="data-column" id="column-2">
-                                <div class="data-label"><span class="data-label-icon">📁</span> Sub-Workflow 2 <br>(Data Unit 2)</div>
-                                <div class="workflow-cards">
-                                    <div class="workflow-card pending">
-                                        <span class="card-icon">🔍</span>
-                                        <span class="card-text">Identify the required data</span>
-                                    </div>
-                                    <div class="workflow-card pending">
-                                        <span class="card-icon">📖</span>
-                                        <span class="card-text">Understand and find the required information from data</span>
-                                    </div>
-                                    <div class="workflow-card pending">
-                                        <span class="card-icon">✏️</span>
-                                        <span class="card-text">Fill the form</span>
-                                    </div>
-                                </div>
-                            </div>
-            
-                            <!-- Data3 -->
-                            <div class="data-column" id="column-3">
-                                <div class="data-label"><span class="data-label-icon">📁</span> Sub-Workflow 3 <br>(Data Unit 3)</div>
-                                <div class="workflow-cards">
-                                    <div class="workflow-card pending">
-                                        <span class="card-icon">🔍</span>
-                                        <span class="card-text">Identify the required data</span>
-                                    </div>
-                                    <div class="workflow-card pending">
-                                        <span class="card-icon">📖</span>
-                                        <span class="card-text">Understand and find the required information from data</span>
-                                    </div>
-                                    <div class="workflow-card pending">
-                                        <span class="card-icon">✏️</span>
-                                        <span class="card-text">Fill the form</span>
-                                    </div>
-                                </div>
-                            </div>
-            
-                            <!-- More indicator -->
-                            <div class="more-indicator" id="more-indicator">
-                                <span>...</span>
-                            </div>
-            
-                        </div>
-            
-                    </div>
-                    <p class="text-center text-muted mt-2 small"><em>Figure 1: OSWorld-Marathon agents handle complex, long-horizon tasks with multiple data units.</em></p>
+                    <img class="teaser-stage" src="assets/teaser.webp" alt="teaser">
+                    <!-- <p class="text-center text-muted mt-2 small"><em>Figure 1: OSWorld-Marathon agents handle complex, long-horizon tasks with multiple data units.</em></p> -->
 
+                    <h3 class="mt-5" id="citation">Citation</h3>
+                    <hr/>
+                    <div class="citation-container mb-5">
+                        <button class="copy-btn" id="copy-citation-btn" onclick="copyCitation()">
+                            📄
+                        </button>
+                        <pre class="w-100 user-select-all font-monospace mb-0" id="citation-text">@article{wu2024reflect3r,
+author = {Wu, Jing and Wang, Zirui and Laina, Iro and Prisacariu, Victor},
+title = {{Reflect3r: Single-View 3D Stereo Reconstruction Aided by Mirror Reflections}},
+journal = {3DV},
+year = {2024},
+}</pre>
+                    </div>
                     <h3 class="mt-4">Abstract</h3>
                     <hr/>
                     <p style="text-align: justify;">
-                        Long-horizon, repetitive workflows are common in professional settings, such as processing expense reports from receipts and entering student grades from exam papers.
-                        These tasks are often tedious for humans since they can extend to extreme lengths proportional to the size of the data to process. 
-                        However, they are ideal for Computer-Use Agents (CUAs) due to their structured, recurring sub-workflows with logic that can be systematically learned. 
-                        Identifying the absence of an evaluation benchmark as a primary bottleneck, we establish OSWorld-Marathon, comprising 252 long-horizon, repetitive tasks across 2 domains to evaluate state-of-the-art (SOTA) agents.
-                        We then introduce a cost-effective method to construct a condensed demonstration using only few-shot examples to teach agents the underlying workflow logic, enabling them to execute similar workflows effectively on larger, unseen data collections. 
-                        Extensive experiments demonstrate both the inherent challenges of these tasks and the effectiveness of our proposed method.
-                        
+                        Mirror reflections are common in everyday environments and can provide stereo information within a single capture, as the real and reflected virtual views are visible simultaneously.
+                        We exploit this property by treating the reflection as an auxiliary view and designing a transformation that constructs a physically valid virtual camera, allowing direct pixel-domain generation of the virtual view while adhering to the real-world imaging process.
+                        This enables a multi-view stereo setup from a single image, simplifying the imaging process, making it compatible with powerful feed-forward reconstruction models for generalizable and robust 3D reconstruction.
+                        To further exploit the geometric symmetry introduced by mirrors, we propose a symmetric-aware loss to refine pose estimation.
+                        Our framework also naturally extends to dynamic scenes, where each frame contains a mirror reflection, enabling efficient per-frame geometry recovery.
+                        For quantitative evaluation, we provide a fully customizable synthetic dataset of 16 Blender scenes, each with ground-truth point clouds and camera poses.
+                        Extensive experiments on real-world data and synthetic data are conducted to illustrate the effectiveness of our method. 
                     </p>
 
-                    <h3 class="mt-4">Task Workflow Visualization</h3>
+                    <h3 class="mt-5">Method</h3>
+                    <hr/>
+                    <img src="https://via.placeholder.com/1200x600/e0e7ff/6366f1?text=Agent+Architecture+Diagram" class="w-100 rounded mb-3" alt="Method Diagram">
+                    <p>
+                        <b>Architecture:</b> The agent operates in a closed loop of Observation (Screenshot + Accessibility Tree), Thought (Chain-of-Thought reasoning), and Action (Keyboard/Mouse primitives). We utilize a hierarchical planner to decompose long-horizon goals into executable sub-routines.
+                    </p>
+
+                    <h3 class="mt-4">Synthetic Blender Data</h3>
                     <hr/>
 
                     <p>
@@ -1383,81 +1187,45 @@
                         </button>
                     </div>
 
-                    <h3 class="mt-4">Data Sample Visualization</h3>
-                    <hr/>
-
-                    <h3 class="mt-4">Synthetic Data Generation Visualization</h3>
-                    <hr/>
-
-                    <h3 class="mt-4">Interactive Environment Visualization</h3>
-                    <hr/>                   
-
-                    
-
-                    <h3 class="mt-5">Methodology</h3>
-                    <hr/>
-                    <img src="https://via.placeholder.com/1200x600/e0e7ff/6366f1?text=Agent+Architecture+Diagram" class="w-100 rounded mb-3" alt="Method Diagram">
-                    <p>
-                        <b>Architecture:</b> The agent operates in a closed loop of Observation (Screenshot + Accessibility Tree), Thought (Chain-of-Thought reasoning), and Action (Keyboard/Mouse primitives). We utilize a hierarchical planner to decompose long-horizon goals into executable sub-routines.
-                    </p>
-
-                    <h3 class="mt-5">Performance Comparison</h3>
+                    <h3 class="mt-5">Results</h3>
                     <hr/>
                     <p>We evaluate state-of-the-art VLMs on the OmniAct test set. <b>OmniAct-Agent</b> (Ours) achieves superior success rates on tasks requiring >10 steps.</p>
                     
-                    <table class="table table-hover mt-4">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Model</th>
-                                <th>Success Rate (%)</th>
-                                <th>Avg Steps</th>
-                                <th>Error Recovery</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>GPT-4o (Zero-shot)</td>
-                                <td>42.5%</td>
-                                <td>12.4</td>
-                                <td>15%</td>
-                            </tr>
-                            <tr>
-                                <td>Claude 3.5 Sonnet</td>
-                                <td>48.2%</td>
-                                <td>11.8</td>
-                                <td>22%</td>
-                            </tr>
-                            <tr class="table-primary fw-bold">
-                                <td>OmniAct (Ours)</td>
-                                <td>64.8%</td>
-                                <td>10.2</td>
-                                <td>45%</td>
-                            </tr>
-                        </tbody>
-                    </table>
+
 
                     <h3 class="mt-5">Acknowledgements</h3>
                     <hr/>
                     <p style="text-align: justify;">
-                        This work was conducted during an internship at Microsoft; we thank Microsoft Research and the Windows 365 team for their support. We also thank the authors of the <a href="https://github.com/xlang-ai/OSWorld" target="_blank">OSWorld benchmark</a> for their open-source infrastructure, which served as a foundation for this project.
+                        Our Code is built upon: 
+                        <a href="https://github.com/naver/dust3r" target="_blank">DUSt3R</a>
+                        <br>
+                        <p>The 16 Blender scenes are collected from online websites, we rearranged and cleaned the scenes and modelled a mirror on top of them for research purpose. Here we listed all the original download links for these scenes, we thank these designers for their great work.</p>
+                        <ol>
+                            <li><a href="https://download.blender.org/demo/cycles/flat-archiviz.blend" target="_blank">Archiviz</a></li>
+                            <li><a href="https://www.cgtrader.com/free-3d-models/interior/bedroom/the-bed-room" target="_blank">Bedroom</a></li>
+                            <li><a href="https://www.blenderkit.com/asset-gallery-detail/b6876684-5516-4973-b4a4-e500c49899b6/" target="_blank">Blue bathroom</a></li>
+                            <li><a href="https://www.cgtrader.com/free-3d-models/interior/interior-office/a-room-9e4a1359-ef9d-460e-9091-b78c36961e09" target="_blank">Computer room</a></li>
+                            <li><a href="https://www.blenderkit.com/asset-gallery-detail/a9267e7e-7cd7-4d5d-b479-8bf8fff2eddf/" target="_blank">Cozy living room</a></li>
+                            <li><a href="https://www.blenderkit.com/asset-gallery-detail/751fbc52-ab6e-475a-b9e0-6ee99a8f45bb/" target="_blank">Greenhouse</a></li>
+                            <li><a href="https://www.cgtrader.com/free-3d-models/architectural/other/high-quality-modern-indoor-gym" target="_blank">Gym</a></li>
+                            <li><a href="https://www.cgtrader.com/free-3d-models/interior/living-room/living-room-contemporary-57e8df25-0df2-4080-99ea-e2e7f0a7bb7a" target="_blank">Livingroom contemporary</a></li>
+                            <li><a href="https://www.cgtrader.com/free-3d-models/interior/living-room/project-b-54e79cb8-6763-471e-9d42-1e7e6cf01e14" target="_blank">Loft</a></li>
+                            <li><a href="https://www.cgtrader.com/free-3d-models/interior/other/mini-gym-blender-scene" target="_blank">MiniGym</a></li>
+                            <li><a href="https://www.blenderkit.com/asset-gallery-detail/c675b544-6e32-42fd-b840-f2fdd964f610/" target="_blank">Minimal interior</a></li>
+                            <li><a href="https://www.cgtrader.com/free-3d-models/interior/living-room/modern-living-room-1179d95e-c242-4ff2-b1b9-85f7373c139e" target="_blank">Modern living room</a></li>
+                            <li><a href="https://www.cgtrader.com/free-3d-models/interior/living-room/living-room-interior-for-blender-cycles-ready" target="_blank">Livingroom</a></li>
+                            <li><a href="https://www.cgtrader.com/free-3d-models/interior/other/free-dining-set-scandinavian-style" target="_blank">Scandinavian</a></li>
+                            <li><a href="https://www.cgtrader.com/free-3d-models/interior/living-room/sunlight-and-concrete-blender-interior" target="_blank">Sunlight</a></li>
+                            <li><a href="https://www.blenderkit.com/asset-gallery-detail/893df9db-a9e4-46da-9d4a-06be1045d73b/" target="_blank">Terrazzo</a></li>
+                        </ol>
+
+
+
                     </p>
 
-                    <h3 class="mt-5" id="citation">Citation</h3>
-                    <hr/>
-                    <div class="citation-container mb-5">
-                        <button class="copy-btn" id="copy-citation-btn" onclick="copyCitation()">
-                            📄
-                        </button>
-                        <pre class="w-100 user-select-all font-monospace mb-0" id="citation-text">@article{wu2026osworld-marathon,
-        title={OSWorld-Marathon: Benchmarking Computer-Use Agents on Long-Horizon Repetitive Tasks},
-        author={Wu, Jing and Barretto, Daphne and Chen, Yiye and Gydé, Nicholas  and Jian, Yanan and He, Yuhang and Vineet, Vibhav},
-        journal={arXiv},
-        year={2026}
-}</pre>
-                    </div>
 
                     <footer class="text-center py-4 mt-5" style="border-top: 1px solid var(--highlight-color); color: #f8f9fa;">
-                        <p class="mb-0">OSWorld-Marathon &copy; 2025 All rights reserved.</p>
+                        <p class="mb-0">Reflect3r &copy; 2026 All rights reserved.</p>
                     </footer>
 
                 </div>
