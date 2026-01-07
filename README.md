@@ -15,9 +15,9 @@
 
 [![Badge with Logo](https://img.shields.io/badge/arXiv-2509.20607v1-red?logo=arxiv)
 ](https://arxiv.org/abs/2509.20607v1)
-[![Badge with Logo](https://img.shields.io/badge/Project-Page-blue?logo=homepage)](https://gaussctrl.active.vision/)
+[![Badge with Logo](https://img.shields.io/badge/Project-Page-blue?logo=homepage)]()
 [![Hugging Face Dataset](https://img.shields.io/badge/Hugging%20Face-Dataset-ffd21e?logo=huggingface&logoColor=yellow)](https://huggingface.co/datasets/jinggogogo/reflect3r_synthetic_data)
-[![Badge with Logo](https://img.shields.io/badge/BSD-License-green)](LICENSE.txt)
+[![Badge with Logo](https://img.shields.io/badge/MIT-License-green)](LICENSE)
 </div>
 
 <div style="background-color: white; display: inline-block; padding: 10px;">
@@ -34,7 +34,7 @@
 ## <img src="https://api.iconify.design/vscode-icons:file-type-json.svg" alt="citation" width="20" height="20"> Citation
 If you find this code or find the paper useful for your research, please consider citing:
 ```
-@article{gaussctrl2024,
+@article{wu2024reflect3r,
 author = {Wu, Jing and Wang, Zirui and Laina, Iro and Prisacariu, Victor},
 title = {{Reflect3r: Single-View 3D Stereo Reconstruction Aided by Mirror Reflections}},
 journal = {3DV},
