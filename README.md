@@ -35,7 +35,7 @@ Extensive experiments on real-world data and synthetic data are conducted to ill
 ## <img src="https://api.iconify.design/vscode-icons:file-type-json.svg" alt="citation" width="20" height="20"> Citation
 If you find this code or find the paper useful for your research, please consider citing:
 ```
-@article{wu2024reflect3r,
+@article{wu2026reflect3r,
 author = {Wu, Jing and Wang, Zirui and Laina, Iro and Prisacariu, Victor},
 title = {{Reflect3r: Single-View 3D Stereo Reconstruction Aided by Mirror Reflections}},
 journal = {3DV},
