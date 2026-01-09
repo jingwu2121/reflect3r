@@ -1162,15 +1162,28 @@ year = {2026},
                     <hr/>
                     <img src="./assets/method.png" class="w-100 rounded mb-3" alt="Method Diagram">
                     <p>
-                        Our method decomposes
+                        Reflect3r reconstructs 3D scenes from a single-view image by leveraging mirror reflections. A reflection transformation is designed to ensure that flipping the real view in the pixel domain, simulating a virtual camera imaging, enables seamless integration with modern feed-forward models. Following the initial prediction, the reflection transformation is used as a geometric constraint to refine pose optimization.
                     </p>
 
-                    <h3 class="mt-4">Synthetic Blender Data</h3>
+                    <h3 class="mt-4">Synthetic Blender Data <a href="https://www.blender.org/" target="_blank"><img src="https://img.shields.io/badge/blender-%23F5792A.svg?style=for-the-badge&logo=blender&logoColor=white" alt="Blender" style="width: 100px;"></a></h3>
                     <hr/>
+
                     <img src="assets/dataset.webp" alt="synthetic data" class="img-fluid">
+                    <p class="text-center text-muted mt-2 small"><em>Thumbnails of the dataset. where each image represents a fully customizable Blender scene.</em></p>
+
+                    <h4 class="mt-4">Download</h4>
+                    <a href="https://huggingface.co/datasets/jinggogogo/reflect3r_synthetic_data" class="btn btn-secondary btn-sm">🤗&nbsp;&nbsp;HuggingFace Data</a>
+                    <ul>
+                        <li>Download the original editable Blender scenes (<code>*.blend</code>) from <a href="https://huggingface.co/datasets/jinggogogo/reflect3r_synthetic_data/tree/main/blender_source_files" target="_blank">here</a>.</li>
+                        <li>Download the rendered and processed data (ground-truth point clouds) from <a href="https://huggingface.co/datasets/jinggogogo/reflect3r_synthetic_data/tree/main/rendered_data" target="_blank">here</a>.</li>
+                        <li>Check <a href="https://github.com/jingwu2121/reflect3r#-synthetic-evaluation-data" target="_blank">here</a> and <a href="https://huggingface.co/datasets/jinggogogo/reflect3r_synthetic_data#synthetic-data-for-evaluation" target="_blank">here</a> for more details about our data.</li>
+                    </ul>
+                    
+
+                    <h4 class="mt-4">Preview</h4>
 
                     <p>
-                        We visualize the agent's execution process across different workflow categories.
+                        We visualize some examples of the synthetic ground-truth point clouds below for preview. <br>
                         <b>Use the controls to switch between examples.</b>
                     </p>
 
@@ -1236,7 +1249,7 @@ year = {2026},
                     <h3 class="mt-5">Results</h3>
                     <hr/>
                     <p>We show the reconstruction results on the synthetic data.</p>
-                    <img src="./assets/exp-syncase-v2.jpg" alt="results" class="img-fluid">
+                    <div style="display: flex; justify-content: center;"><img src="./assets/exp-syncase-v2.jpg" alt="results" class="img-fluid"></div>
 
 
                     <h3 class="mt-5">Acknowledgements</h3>
@@ -1362,23 +1375,23 @@ year = {2026},
                 const modelConfigs = [
                     {
                         type: 'glb',
+                        path: './models/greenhouse.glb',
+                        title: 'Green Room Point Cloud'
+                    },
+                    {
+                        type: 'glb',
                         path: './models/scandinavian.glb',
                         title: 'Scandinavian Point Cloud'
                     },
                     {
                         type: 'glb',
-                        path: './models/greenhouse.glb',
-                        title: 'Archiviz Point Cloud'
-                    },
-                    {
-                        type: 'glb',
                         path: './models/terrazzo.glb',
-                        title: 'Cozy Living Room Point Cloud'
+                        title: 'Terrazzo Kitchen Point Cloud'
                     },
                     {
                         type: 'glb',
                         path: './models/blue_bathroom.glb',
-                        title: 'Cozy Living Room Point Cloud'
+                        title: 'Bathroom Point Cloud'
                     }
                 ];
 
