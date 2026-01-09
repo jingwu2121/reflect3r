@@ -358,7 +358,8 @@ if __name__ == "__main__":
         # moving_pose = cam_mirror_pose if fix_view_idx == 1 else cam_main_pose
 
         # transform = np.linalg.inv(fix_view_pose)
-        transform = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, -1, 0, 0], [0, 0, 0, 1]])
+        # transform = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, -1, 0, 0], [0, 0, 0, 1]]) # rotate 90 clockwise around x axis
+        transform = np.array([[-1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]]) # rotate 90 clockwise around x axis and 180 degrees around y axis
         cam_main_pose_transformed = transform @ cam_main_pose
         cam_mirror_pose_transformed = transform @ cam_mirror_pose
         pcd_unified_transformed = transform_pcd(pcd_unified, transform)
@@ -382,6 +383,21 @@ if __name__ == "__main__":
         # cam_main_pose[:3, 3] *= scale_factor
         # cam_mirror_pose[:3, 3] *= scale_factor
 
+        # # Save and visualize
+        # o3d.io.write_point_cloud(f"{save_dir}/point_cloud_gt.ply", pcd_unified)
+        # # o3d.io.write_point_cloud(f"point_cloud_main.ply", pcd_main)
+        # # o3d.io.write_point_cloud(f"point_cloud_mirror.ply", pcd_mirror)
+        # unit_frustum_scale = get_frustum_opencv(np.eye(4), colour=(0, 1, 0), scale=0.5)
+        # frustum_main = get_frustum_opencv(cam_main_pose, colour=(0, 0, 1), scale=0.5)
+        # frustum_mirror = get_frustum_opencv(cam_mirror_pose, colour=(0, 0, 1), scale=0.5)
+        # os.makedirs(f"{save_dir}/processed_poses", exist_ok=True)
+        # o3d.io.write_triangle_mesh(f"{save_dir}/processed_poses/frustum_main.ply", frustum_main)
+        # o3d.io.write_triangle_mesh(f"{save_dir}/processed_poses/frustum_mirror.ply", frustum_mirror)
+        # # o3d.io.write_triangle_mesh(f"{save_dir}/processed_poses/frustum_unit.ply", unit_frustum_scale)
+        # np.save(f"{save_dir}/processed_poses/cam_main.npy", cam_main_pose)
+        # np.save(f"{save_dir}/processed_poses/cam_mirror.npy", cam_mirror_pose)
+
+
         # Save and visualize
         o3d.io.write_point_cloud(f"{save_dir}/point_cloud_gt.ply", pcd_unified_transformed)
         # o3d.io.write_point_cloud(f"point_cloud_main.ply", pcd_main)
@@ -395,5 +411,6 @@ if __name__ == "__main__":
         # o3d.io.write_triangle_mesh(f"{save_dir}/processed_poses/frustum_unit.ply", unit_frustum_scale)
         np.save(f"{save_dir}/processed_poses/cam_main.npy", cam_main_pose_transformed)
         np.save(f"{save_dir}/processed_poses/cam_mirror.npy", cam_mirror_pose_transformed)
+    
     
         
