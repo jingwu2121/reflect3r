@@ -53,7 +53,16 @@ We built a collection of synthetic Blender scenes containing mirror reflections 
 
 Download our synthetic evaluation data [here](https://huggingface.co/datasets/jinggogogo/reflect3r_synthetic_data). 
 - Download the [original blender scenes](https://huggingface.co/datasets/jinggogogo/reflect3r_synthetic_data/tree/main/blender_source_files)
-- Download the processed data:
+- Download the [processed data](https://huggingface.co/datasets/jinggogogo/reflect3r_synthetic_data/tree/main/rendered_data)
+
+Scripts for Modelling in Blender
+- Use `data_toolkit/add_mirrored_cam.py` to model a mirrored camera against the mirror plane in Blender's scripting tab. 
+- Use `data_toolkit/render_depth.py` to render the depth, rgb images and camera information from Blender scripting. 
+
+Generate the ground-truth point cloud for evaluation:
+```bash
+python syn_gt_point_cloud_gen.py --scene_name '<SCENE TO PROCESS>' --save_root '/path/to/save'
+```
 
 
 ## Acknowledgement
