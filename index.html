@@ -1179,6 +1179,7 @@ year = {2026},
                             <button type="button" data-bs-target="#threeDModels" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                             <button type="button" data-bs-target="#threeDModels" data-bs-slide-to="1" aria-label="Slide 2"></button>
                             <button type="button" data-bs-target="#threeDModels" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            <button type="button" data-bs-target="#threeDModels" data-bs-slide-to="3" aria-label="Slide 4"></button>
                         </div>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
@@ -1209,6 +1210,16 @@ year = {2026},
                                 </div>
                                 <div class="carousel-caption">
                                     <h5>3D Model 3</h5>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="ratio ratio-16x9 rounded">
+                                    <div class="model-viewer-container" id="model-viewer-3">
+                                        <div class="model-loading">Loading 3D model...</div>
+                                    </div>
+                                </div>
+                                <div class="carousel-caption">
+                                    <h5>3D Model 4</h5>
                                 </div>
                             </div>
                         </div>
@@ -1351,17 +1362,22 @@ year = {2026},
                 const modelConfigs = [
                     {
                         type: 'glb',
-                        path: './models/point_cloud_gt.glb',
-                        title: 'Bedroom Point Cloud'
+                        path: './models/scandinavian.glb',
+                        title: 'Scandinavian Point Cloud'
                     },
                     {
-                        type: 'ply',
-                        path: './models/point_cloud_gt.ply',
+                        type: 'glb',
+                        path: './models/greenhouse.glb',
                         title: 'Archiviz Point Cloud'
                     },
                     {
-                        type: 'ply',
-                        path: './models/point_cloud_gt.ply',
+                        type: 'glb',
+                        path: './models/terrazzo.glb',
+                        title: 'Cozy Living Room Point Cloud'
+                    },
+                    {
+                        type: 'glb',
+                        path: './models/blue_bathroom.glb',
                         title: 'Cozy Living Room Point Cloud'
                     }
                 ];
@@ -1400,7 +1416,7 @@ year = {2026},
 
                     // Create camera
                     const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
-                    camera.position.set(0, 0, 5);
+                    camera.position.set(0, 0, 1);
 
                     // Create renderer
                     const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -1420,7 +1436,7 @@ year = {2026},
                     orbitControls.enableDamping = true;
                     orbitControls.dampingFactor = 0.05;
                     orbitControls.minDistance = 1;
-                    orbitControls.maxDistance = 20;
+                    orbitControls.maxDistance = 15;
 
                     scenes.push(scene);
                     cameras.push(camera);
@@ -1488,11 +1504,10 @@ year = {2026},
                                 points.scale.multiplyScalar(scale);
                                 points.position.sub(center.multiplyScalar(scale));
 
-                                // Update camera position
-                                if (maxDim > 0) {
-                                    cameras[index].position.set(0, 0, maxDim * 1.5);
-                                    cameras[index].lookAt(0, 0, 0);
-                                }
+                                // Update camera position based on scaled model size (model is now ~2 units)
+                                const scaledSize = 3; // Model is scaled to fit in 2 units
+                                cameras[index].position.set(0, 0, scaledSize * 0.8);
+                                cameras[index].lookAt(0, 0, 0);
 
                                 models[index] = points;
                                 loadedModels[index] = true;
@@ -1535,11 +1550,10 @@ year = {2026},
                                 model.scale.multiplyScalar(scale);
                                 model.position.sub(center.multiplyScalar(scale));
 
-                                // Update camera position
-                                if (maxDim > 0) {
-                                    cameras[index].position.set(0, 0, maxDim * 1.5);
-                                    cameras[index].lookAt(0, 0, 0);
-                                }
+                                // Update camera position based on scaled model size (model is now ~2 units)
+                                const scaledSize = 3; // Model is scaled to fit in 2 units
+                                cameras[index].position.set(0, 0, scaledSize * 0.8);
+                                cameras[index].lookAt(0, 0, 0);
 
                                 models[index] = model;
                                 loadedModels[index] = true;
@@ -1656,7 +1670,7 @@ year = {2026},
                 } catch (error) {
                     console.error('3D Model Viewer: Fatal error during initialization:', error);
                     // Show error message in all containers
-                    for (let i = 0; i < 3; i++) {
+                    for (let i = 0; i < 4; i++) {
                         const container = document.getElementById(`model-viewer-${i}`);
                         if (container) {
                             const loadingDiv = container.querySelector('.model-loading');
