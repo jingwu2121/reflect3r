@@ -81,6 +81,43 @@
                 min-height: 300px;
             }
 
+            .model-viewer-container {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: #1f2937;
+                border-radius: 8px;
+                overflow: hidden;
+            }
+
+            .model-viewer-container canvas {
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+
+            .model-loading {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: #f8f9fa;
+                font-size: 14px;
+                z-index: 10;
+            }
+
+            /* Fix carousel controls positioning */
+            #threeDModels .carousel-control-prev,
+            #threeDModels .carousel-control-next {
+                z-index: 15;
+            }
+
+            #threeDModels .carousel-indicators {
+                z-index: 15;
+            }
+
             pre {
                 background: #1a1a1a;
                 color: #e5e7eb;
@@ -1080,10 +1117,10 @@
                 </div>
                 <div class="col-sm-0 col-md-2"></div>
                 <div class="col-md-12 mt-3">
-                    <a href="#" class="btn btn-secondary btn-sm"><i class="ai ai-arxiv"></i>&nbsp;&nbsp;Paper</a>
-                    <a href="#" class="btn btn-secondary btn-sm"><i class="fa-brands fa-github"></i>&nbsp;&nbsp;Code</a>
-                    <a href="#" class="btn btn-secondary btn-sm"><i class="fa-solid fa-scale-balanced"></i>&nbsp;&nbsp;License</a>
-                    <a href="#" class="btn btn-secondary btn-sm">🤗&nbsp;&nbsp;HuggingFace Data</a>
+                    <a href="https://arxiv.org/abs/2509.20607" class="btn btn-secondary btn-sm"><i class="ai ai-arxiv"></i>&nbsp;&nbsp;Paper</a>
+                    <a href="https://github.com/jingwu2121/reflect3r" class="btn btn-secondary btn-sm"><i class="fa-brands fa-github"></i>&nbsp;&nbsp;Code</a>
+                    <a href="https://github.com/jingwu2121/reflect3r/blob/main/LICENSE" class="btn btn-secondary btn-sm"><i class="fa-solid fa-scale-balanced"></i>&nbsp;&nbsp;License</a>
+                    <a href="https://huggingface.co/datasets/jinggogogo/reflect3r_synthetic_data" class="btn btn-secondary btn-sm">🤗&nbsp;&nbsp;HuggingFace Data</a>
                     <a href="#citation" class="btn btn-secondary btn-sm"><i class="fa-solid fa-file"></i>&nbsp;&nbsp;BibTeX</a>
                 </div>
             </div>
@@ -1123,65 +1160,63 @@ year = {2026},
 
                     <h3 class="mt-5">Method</h3>
                     <hr/>
-                    <img src="https://via.placeholder.com/1200x600/e0e7ff/6366f1?text=Agent+Architecture+Diagram" class="w-100 rounded mb-3" alt="Method Diagram">
+                    <img src="./assets/method.png" class="w-100 rounded mb-3" alt="Method Diagram">
                     <p>
-                        <b>Architecture:</b> The agent operates in a closed loop of Observation (Screenshot + Accessibility Tree), Thought (Chain-of-Thought reasoning), and Action (Keyboard/Mouse primitives). We utilize a hierarchical planner to decompose long-horizon goals into executable sub-routines.
+                        Our method decomposes
                     </p>
 
                     <h3 class="mt-4">Synthetic Blender Data</h3>
                     <hr/>
+                    <img src="assets/dataset.webp" alt="synthetic data" class="img-fluid">
 
                     <p>
                         We visualize the agent's execution process across different workflow categories.
                         <b>Use the controls to switch between examples.</b>
                     </p>
 
-                    <div id="agentResults" class="carousel slide" data-bs-ride="false">
+                    <div id="threeDModels" class="carousel slide" data-bs-ride="false">
                         <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#agentResults" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#agentResults" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                            <button type="button" data-bs-target="#agentResults" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            <button type="button" data-bs-target="#threeDModels" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#threeDModels" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#threeDModels" data-bs-slide-to="2" aria-label="Slide 3"></button>
                         </div>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <div class="ratio ratio-16x9 placeholder-slide d-flex align-items-center justify-content-center text-white rounded">
-                                    <div class="text-center">
-                                        <i class="fa-solid fa-plane fa-3x mb-3"></i><br>
-                                        Flight Booking & Itinerary Planning
+                                <div class="ratio ratio-16x9 rounded">
+                                    <div class="model-viewer-container" id="model-viewer-0">
+                                        <div class="model-loading">Loading 3D model...</div>
                                     </div>
                                 </div>
                                 <div class="carousel-caption">
-                                    <h5>Web Agent: Travel Planning</h5>
+                                    <h5>3D Model 1</h5>
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <div class="ratio ratio-16x9 placeholder-slide d-flex align-items-center justify-content-center text-white rounded">
-                                    <div class="text-center">
-                                        <i class="fa-solid fa-file-excel fa-3x mb-3"></i><br>
-                                        Spreadsheet Data Entry
+                                <div class="ratio ratio-16x9 rounded">
+                                    <div class="model-viewer-container" id="model-viewer-1">
+                                        <div class="model-loading">Loading 3D model...</div>
                                     </div>
                                 </div>
                                 <div class="carousel-caption">
-                                    <h5>Desktop Agent: Excel Automation</h5>
+                                    <h5>3D Model 2</h5>
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <div class="ratio ratio-16x9 placeholder-slide d-flex align-items-center justify-content-center text-white rounded">
-                                    <div class="text-center">
-                                        <i class="fa-brands fa-ubuntu fa-3x mb-3"></i><br>
-                                        Terminal & System Config
+                                <div class="ratio ratio-16x9 rounded">
+                                    <div class="model-viewer-container" id="model-viewer-2">
+                                        <div class="model-loading">Loading 3D model...</div>
                                     </div>
                                 </div>
                                 <div class="carousel-caption">
-                                    <h5>OS Agent: Linux Administration</h5>
+                                    <h5>3D Model 3</h5>
                                 </div>
                             </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#agentResults" data-bs-slide="prev">
+                        <button class="carousel-control-prev" type="button" data-bs-target="#threeDModels" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#agentResults" data-bs-slide="next">
+                        <button class="carousel-control-next" type="button" data-bs-target="#threeDModels" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
@@ -1189,8 +1224,8 @@ year = {2026},
 
                     <h3 class="mt-5">Results</h3>
                     <hr/>
-                    <p>We evaluate state-of-the-art VLMs on the OmniAct test set. <b>OmniAct-Agent</b> (Ours) achieves superior success rates on tasks requiring >10 steps.</p>
-                    
+                    <p>We show the reconstruction results on the synthetic data.</p>
+                    <img src="./assets/exp-syncase-v2.jpg" alt="results" class="img-fluid">
 
 
                     <h3 class="mt-5">Acknowledgements</h3>
@@ -1240,6 +1275,16 @@ year = {2026},
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
             crossorigin="anonymous"></script>
+        
+        <!-- Three.js for 3D model rendering -->
+        <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+            }
+        }
+        </script>
 
         <script>
             // Copy citation to clipboard
@@ -1268,242 +1313,368 @@ year = {2026},
             function sleep(ms) {
                 return new Promise(resolve => setTimeout(resolve, ms));
             }
+        </script>
 
-            // ==================== INTRO ANIMATION ====================
-            document.addEventListener("DOMContentLoaded", async () => {
-                const introStage = document.getElementById('intro-stage');
-                const teaserStage = document.getElementById('teaser-stage');
-                const traveler = document.getElementById('traveler');
-                const facepalmContainer = document.getElementById('facepalm-container');
-                const receiptsContainer = document.getElementById('receipts-container');
-                const receiptImgs = receiptsContainer.querySelectorAll('.receipt-img');
-                const receiptsBubble = document.getElementById('receipts-bubble');
-                const expenseArrow = document.getElementById('expense-arrow');
-                const expenseSystemContainer = document.getElementById('expense-system-container');
-                const robotHandContainer = document.getElementById('robot-hand-container');
-                const actionLines = document.getElementById('action-lines');
-                const mangaSparkles = document.querySelectorAll('.manga-sparkle');
-
-                // Run intro animation
-                await runIntroAnimation();
-
-                async function runIntroAnimation() {
-                    // Phase 1: Traveler enters from left
-                    await sleep(500);
-                    traveler.classList.add('enter');
-
-                    // Phase 2: Receipts fade in with floating
-                    await sleep(800);
-                    receiptsBubble.classList.add('visible');
-                    for (let i = 0; i < receiptImgs.length; i++) {
-                        setTimeout(() => {
-                            receiptImgs[i].classList.add('visible');
-                            receiptImgs[i].classList.add('float');
-                        }, i * 150);
-                    }
-
-                    // Phase 2.5: Arrow and expense system appear
-                    await sleep(1200);
-                    expenseArrow.classList.add('visible');
-                    await sleep(400);
-                    expenseSystemContainer.classList.add('visible');
-
-                    // Phase 3: Traveler becomes confused, switches to facepalm
-                    await sleep(1500);
-                    traveler.classList.add('exit');
-                    actionLines.classList.add('visible');
-                    await sleep(400);
-                    traveler.style.display = 'none';
-                    facepalmContainer.classList.add('visible');
-
-                    // Phase 4: Everything fades out
-                    await sleep(1500);
-                    actionLines.classList.remove('visible');
-                    receiptsBubble.classList.remove('visible');
-                    receiptImgs.forEach(img => {
-                        img.classList.remove('visible');
-                        img.classList.remove('float');
-                    });
-                    expenseArrow.classList.remove('visible');
-                    expenseSystemContainer.classList.remove('visible');
-                    facepalmContainer.classList.remove('visible');
-
-                    // Phase 5: Robot hand and agent fade in with doraemon background
-                    await sleep(600);
-                    introStage.classList.add('doraemon-bg');
-                    await sleep(100);
-                    robotHandContainer.classList.add('visible');
-
-                    // Phase 6: Hold for a moment, then transition
-                    await sleep(3000);
-                    robotHandContainer.classList.add('exit');
-
-                    // Phase 7: Fade out intro, show main animation
-                    await sleep(800);
-                    introStage.style.opacity = '0';
-                    introStage.style.transition = 'opacity 0.8s ease';
+        <!-- 3D Model Viewer Module -->
+        <script type="module">
+            // ==================== 3D MODEL VIEWER ====================
+            console.log('3D Model Viewer: Script started');
+            
+            async function init3DViewer() {
+                try {
+                    console.log('3D Model Viewer: Importing Three.js modules...');
+                    // Import Three.js modules
+                    const THREE = await import('three');
+                    console.log('3D Model Viewer: THREE imported successfully');
                     
-                    await sleep(800);
-                    introStage.classList.remove('doraemon-bg');
-                    introStage.classList.add('hidden');
-                    teaserStage.classList.remove('hidden');
-                    teaserStage.classList.add('visible');
+                    const { PLYLoader } = await import('three/addons/loaders/PLYLoader.js');
+                    console.log('3D Model Viewer: PLYLoader imported successfully');
+                    
+                    const { GLTFLoader } = await import('three/addons/loaders/GLTFLoader.js');
+                    console.log('3D Model Viewer: GLTFLoader imported successfully');
+                    
+                    const { DRACOLoader } = await import('three/addons/loaders/DRACOLoader.js');
+                    console.log('3D Model Viewer: DRACOLoader imported successfully');
+                    
+                    const { OrbitControls } = await import('three/addons/controls/OrbitControls.js');
+                    console.log('3D Model Viewer: OrbitControls imported successfully');
+                
+                // DRACO decoder for draco-compressed glTF/GLB assets.
+                // Note: This only helps if the GLB is actually DRACO-compressed.
+                const dracoLoader = new DRACOLoader();
+                dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+                dracoLoader.preload();
 
-                    // Start the main workflow animation (loops forever)
-                    await sleep(500);
-                    runMainAnimation();
-                }
-            });
-
-            // ==================== MAIN WORKFLOW ANIMATION (LOOPS) ====================
-            function runMainAnimation() {
-                const taskSection = document.getElementById('task-section');
-                const downArrow = document.getElementById('down-arrow');
-                const decomposeLabel = document.getElementById('decompose-label');
-                const robotContainer = document.getElementById('robot-container');
-                const branchSection = document.getElementById('branch-section');
-                const columns = [
-                    document.getElementById('column-1'),
-                    document.getElementById('column-2'),
-                    document.getElementById('column-3')
-                ];
-                const moreIndicator = document.getElementById('more-indicator');
-                const branchArrows = branchSection.querySelectorAll('.branch-arrow');
-
-                async function runAnimation() {
-                    // Phase 1: Task appears
-                    await sleep(300);
-                    taskSection.classList.add('visible');
-
-                    // Phase 2: Down arrow
-                    await sleep(500);
-                    downArrow.classList.add('visible');
-                    await sleep(100);
-                    downArrow.classList.add('animated');
-
-                    // Phase 3: Decompose label and robot
-                    await sleep(500);
-                    decomposeLabel.classList.add('visible');
-                    await sleep(200);
-                    robotContainer.classList.add('visible');
-                    robotContainer.classList.add('thinking');
-
-                    // Phase 4: Branch arrows
-                    await sleep(800);
-                    robotContainer.classList.remove('thinking');
-                    robotContainer.classList.add('working');
-                    branchSection.classList.add('visible');
-                    await sleep(100);
-                    branchSection.classList.add('animated');
-
-                    // Phase 5: Show all columns
-                    await sleep(500);
-                    columns.forEach((col, i) => {
-                        setTimeout(() => {
-                            col.classList.add('visible');
-                            col.classList.add('pending');
-                        }, i * 150);
-                    });
-
-                    await sleep(600);
-                    moreIndicator.classList.add('visible');
-
-                    // Phase 6: Start processing cycle
-                    await sleep(500);
-                    runProcessingCycle();
-                }
-
-                async function processColumn(columnIndex) {
-                    const column = columns[columnIndex];
-                    const cards = column.querySelectorAll('.workflow-card');
-                    const dataName = `Sub-Workflow ${columnIndex + 1} <br>(Data Unit ${columnIndex + 1})`;
-
-                    decomposeLabel.innerHTML = `🔄 Processing ${dataName}`;
-                    decomposeLabel.classList.add('processing');
-                    robotContainer.classList.add('working');
-
-                    columns.forEach((col, i) => {
-                        if (i === columnIndex) {
-                            col.classList.remove('pending', 'completed');
-                            col.classList.add('active');
-                        } else if (i < columnIndex) {
-                            col.classList.remove('pending', 'active');
-                            col.classList.add('completed');
-                        } else {
-                            col.classList.remove('active', 'completed');
-                            col.classList.add('pending');
-                        }
-                    });
-
-                    branchArrows.forEach((arrow, i) => {
-                        if (i === columnIndex) {
-                            arrow.classList.remove('dimmed');
-                            arrow.classList.add('highlighted');
-                        } else {
-                            arrow.classList.remove('highlighted');
-                            arrow.classList.add('dimmed');
-                        }
-                    });
-
-                    for (let i = 0; i < cards.length; i++) {
-                        const card = cards[i];
-                        card.classList.remove('pending');
-                        card.classList.add('processing');
-                        await sleep(600);
-                        card.classList.remove('processing');
-                        card.classList.add('completed');
-                        await sleep(150);
+                // Define model files for each carousel item
+                // TIP: For faster loading, host models on a CDN (e.g., GitHub Releases, Cloudflare R2, AWS S3, etc.)
+                // and use the full URL here. Example: path: 'https://cdn.example.com/models/point_cloud_gt.glb'
+                const modelConfigs = [
+                    {
+                        type: 'glb',
+                        path: './models/point_cloud_gt.glb',
+                        title: 'Bedroom Point Cloud'
+                    },
+                    {
+                        type: 'ply',
+                        path: './models/point_cloud_gt.ply',
+                        title: 'Archiviz Point Cloud'
+                    },
+                    {
+                        type: 'ply',
+                        path: './models/point_cloud_gt.ply',
+                        title: 'Cozy Living Room Point Cloud'
                     }
+                ];
 
-                    await sleep(300);
+                const scenes = [];
+                const cameras = [];
+                const renderers = [];
+                const controls = [];
+                const models = [];
+                const loadingStates = []; // Track loading state for each model
+                const loadedModels = []; // Track if model is loaded
+
+                // Initialize each 3D viewer
+                console.log('3D Model Viewer: Initializing viewers for', modelConfigs.length, 'models');
+                
+                // Wait a bit to ensure containers are rendered
+                await new Promise(resolve => setTimeout(resolve, 100));
+                
+                modelConfigs.forEach((config, index) => {
+                    const container = document.getElementById(`model-viewer-${index}`);
+                    if (!container) {
+                        console.error(`3D Model Viewer: Container model-viewer-${index} not found!`);
+                        return;
+                    }
+                    console.log(`3D Model Viewer: Found container model-viewer-${index}`);
+
+                    // Get actual dimensions from the container
+                    const rect = container.getBoundingClientRect();
+                    const width = rect.width || container.clientWidth || 800;
+                    const height = rect.height || container.clientHeight || 450;
+                    console.log(`3D Model Viewer: Container ${index} size: ${width}x${height}`);
+
+                    // Create scene
+                    const scene = new THREE.Scene();
+                    scene.background = new THREE.Color(0x1f2937);
+
+                    // Create camera
+                    const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
+                    camera.position.set(0, 0, 5);
+
+                    // Create renderer
+                    const renderer = new THREE.WebGLRenderer({ antialias: true });
+                    renderer.setSize(width, height);
+                    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Limit pixel ratio for performance
+                    container.appendChild(renderer.domElement);
+
+                    // Add lights
+                    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+                    scene.add(ambientLight);
+                    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+                    directionalLight.position.set(1, 1, 1);
+                    scene.add(directionalLight);
+
+                    // Create controls
+                    const orbitControls = new OrbitControls(camera, renderer.domElement);
+                    orbitControls.enableDamping = true;
+                    orbitControls.dampingFactor = 0.05;
+                    orbitControls.minDistance = 1;
+                    orbitControls.maxDistance = 20;
+
+                    scenes.push(scene);
+                    cameras.push(camera);
+                    renderers.push(renderer);
+                    controls.push(orbitControls);
+                    models.push(null);
+                    loadingStates.push(false);
+                    loadedModels.push(false);
+
+                    // Update caption
+                    const caption = container.closest('.carousel-item')?.querySelector('.carousel-caption h5');
+                    if (caption && config.title) {
+                        caption.textContent = config.title;
+                    }
+                });
+
+                function loadModel(config, scene, container, index) {
+                    // Skip if already loading or loaded
+                    if (loadingStates[index] || loadedModels[index]) {
+                        return;
+                    }
+                    
+                    loadingStates[index] = true;
+                    const loadingDiv = container.querySelector('.model-loading');
+                    if (loadingDiv) {
+                        loadingDiv.style.display = 'block';
+                        loadingDiv.textContent = 'Loading 3D model...';
+                    }
+                    
+                    console.log(`3D Model Viewer: Loading ${config.type} model from ${config.path}`);
+                    
+                    // Create a LoadingManager for the loader
+                    const manager = new THREE.LoadingManager();
+                    
+                    if (config.type === 'ply') {
+                        const loader = new PLYLoader(manager);
+                        loader.load(
+                            config.path,
+                            (geometry) => {
+                                console.log(`3D Model Viewer: PLY model loaded successfully, vertices: ${geometry.attributes.position.count}`);
+                                geometry.computeVertexNormals();
+                                
+                                // Check if geometry has colors
+                                const hasColors = geometry.hasAttribute('color');
+                                
+                                // Create material
+                                const material = new THREE.PointsMaterial({
+                                    size: 0.01,
+                                    vertexColors: hasColors,
+                                    color: hasColors ? 0xffffff : 0x9efee6
+                                });
+
+                                // Create points
+                                const points = new THREE.Points(geometry, material);
+                                scene.add(points);
+
+                                // Center and scale model
+                                geometry.computeBoundingBox();
+                                const box = geometry.boundingBox;
+                                const center = box.getCenter(new THREE.Vector3());
+                                const size = box.getSize(new THREE.Vector3());
+                                const maxDim = Math.max(size.x, size.y, size.z);
+                                const scale = maxDim > 0 ? 2 / maxDim : 1;
+
+                                points.scale.multiplyScalar(scale);
+                                points.position.sub(center.multiplyScalar(scale));
+
+                                // Update camera position
+                                if (maxDim > 0) {
+                                    cameras[index].position.set(0, 0, maxDim * 1.5);
+                                    cameras[index].lookAt(0, 0, 0);
+                                }
+
+                                models[index] = points;
+                                loadedModels[index] = true;
+                                loadingStates[index] = false;
+                                if (loadingDiv) loadingDiv.style.display = 'none';
+                            },
+                            (progress) => {
+                                if (progress.lengthComputable && loadingDiv) {
+                                    const percent = (progress.loaded / progress.total * 100).toFixed(0);
+                                    loadingDiv.textContent = `Loading... ${percent}%`;
+                                }
+                            },
+                            (error) => {
+                                console.error('3D Model Viewer: Error loading PLY:', error);
+                                console.error('3D Model Viewer: Failed path:', config.path);
+                                loadingStates[index] = false;
+                                if (loadingDiv) {
+                                    loadingDiv.textContent = 'Error loading model: ' + (error.message || 'Unknown error');
+                                    loadingDiv.style.color = '#ff6b6b';
+                                }
+                            }
+                        );
+                    } else if (config.type === 'glb') {
+                        const loader = new GLTFLoader(manager);
+                        loader.setDRACOLoader(dracoLoader);
+                        loader.load(
+                            config.path,
+                            (gltf) => {
+                                console.log(`3D Model Viewer: GLB model loaded successfully`);
+                                const model = gltf.scene;
+                                scene.add(model);
+
+                                // Center and scale model
+                                const box = new THREE.Box3().setFromObject(model);
+                                const center = box.getCenter(new THREE.Vector3());
+                                const size = box.getSize(new THREE.Vector3());
+                                const maxDim = Math.max(size.x, size.y, size.z);
+                                const scale = maxDim > 0 ? 2 / maxDim : 1;
+
+                                model.scale.multiplyScalar(scale);
+                                model.position.sub(center.multiplyScalar(scale));
+
+                                // Update camera position
+                                if (maxDim > 0) {
+                                    cameras[index].position.set(0, 0, maxDim * 1.5);
+                                    cameras[index].lookAt(0, 0, 0);
+                                }
+
+                                models[index] = model;
+                                loadedModels[index] = true;
+                                loadingStates[index] = false;
+                                if (loadingDiv) loadingDiv.style.display = 'none';
+                            },
+                            (progress) => {
+                                if (progress.lengthComputable && loadingDiv) {
+                                    const percent = (progress.loaded / progress.total * 100).toFixed(0);
+                                    loadingDiv.textContent = `Loading... ${percent}%`;
+                                }
+                            },
+                            (error) => {
+                                console.error('3D Model Viewer: Error loading GLB:', error);
+                                console.error('3D Model Viewer: Failed path:', config.path);
+                                loadingStates[index] = false;
+                                if (loadingDiv) {
+                                    loadingDiv.textContent = 'Error loading model: ' + (error.message || 'Unknown error');
+                                    loadingDiv.style.color = '#ff6b6b';
+                                }
+                            }
+                        );
+                    }
                 }
 
-                function resetAllElements() {
-                    taskSection.classList.remove('visible');
-                    downArrow.classList.remove('visible', 'animated');
-                    decomposeLabel.innerHTML = '⚙️ Decompose the task';
-                    decomposeLabel.classList.remove('visible', 'processing');
-                    robotContainer.classList.remove('visible', 'thinking', 'working');
-                    branchSection.classList.remove('visible', 'animated');
-                    branchArrows.forEach(arrow => {
-                        arrow.classList.remove('highlighted', 'dimmed');
-                    });
-                    columns.forEach(col => {
-                        col.classList.remove('visible', 'pending', 'active', 'completed');
-                    });
-                    document.querySelectorAll('.workflow-card').forEach(card => {
-                        card.classList.remove('processing', 'completed');
-                        card.classList.add('pending');
-                    });
-                    moreIndicator.classList.remove('visible');
+                // Function to check if a carousel item is visible
+                function isCarouselItemVisible(index) {
+                    const carousel = document.getElementById('threeDModels');
+                    if (!carousel) return false;
+                    const carouselItems = carousel.querySelectorAll('.carousel-item');
+                    if (index >= carouselItems.length) return false;
+                    return carouselItems[index].classList.contains('active');
                 }
 
-                async function runProcessingCycle() {
-                    await processColumn(0);
-                    await processColumn(1);
-                    await processColumn(2);
-
-                    columns.forEach(col => {
-                        col.classList.remove('active', 'pending');
-                        col.classList.add('completed');
-                    });
-
-                    branchArrows.forEach(arrow => {
-                        arrow.classList.remove('dimmed');
-                        arrow.classList.add('highlighted');
-                    });
-
-                    decomposeLabel.innerHTML = '✅ All sub-workflows processed';
-                    decomposeLabel.classList.remove('processing');
-                    robotContainer.classList.remove('working');
-
-                    await sleep(1500);
-                    resetAllElements();
-                    await sleep(600);
-                    runAnimation();
+                // Load model when carousel slide becomes active
+                function handleCarouselSlide(e) {
+                    const activeIndex = e.to;
+                    const config = modelConfigs[activeIndex];
+                    const container = document.getElementById(`model-viewer-${activeIndex}`);
+                    
+                    if (config && container && !loadedModels[activeIndex] && !loadingStates[activeIndex]) {
+                        loadModel(config, scenes[activeIndex], container, activeIndex);
+                    }
+                    
+                    // Preload next slide in background
+                    const nextIndex = (activeIndex + 1) % modelConfigs.length;
+                    if (nextIndex !== activeIndex) {
+                        const nextConfig = modelConfigs[nextIndex];
+                        const nextContainer = document.getElementById(`model-viewer-${nextIndex}`);
+                        if (nextConfig && nextContainer && !loadedModels[nextIndex] && !loadingStates[nextIndex]) {
+                            // Preload with lower priority (small delay)
+                            setTimeout(() => {
+                                if (!loadedModels[nextIndex] && !loadingStates[nextIndex]) {
+                                    loadModel(nextConfig, scenes[nextIndex], nextContainer, nextIndex);
+                                }
+                            }, 500);
+                        }
+                    }
                 }
 
-                runAnimation();
+                // Track active slide index
+                let activeSlideIndex = 0;
+
+                // Animation loop - only render visible slides for better performance
+                function animate() {
+                    requestAnimationFrame(animate);
+                    
+                    controls.forEach((control, index) => {
+                        // Only render if model is loaded and slide is visible
+                        if (control && models[index] && isCarouselItemVisible(index)) {
+                            control.update();
+                            renderers[index].render(scenes[index], cameras[index]);
+                        }
+                    });
+                }
+                animate();
+
+                // Handle window resize
+                window.addEventListener('resize', () => {
+                    modelConfigs.forEach((config, index) => {
+                        const container = document.getElementById(`model-viewer-${index}`);
+                        if (!container) return;
+
+                        const width = container.clientWidth;
+                        const height = container.clientHeight;
+
+                        if (cameras[index] && width > 0 && height > 0) {
+                            cameras[index].aspect = width / height;
+                            cameras[index].updateProjectionMatrix();
+                            renderers[index].setSize(width, height);
+                        }
+                    });
+                });
+
+                // Handle carousel slide events
+                const carousel = document.getElementById('threeDModels');
+                if (carousel) {
+                    carousel.addEventListener('slide.bs.carousel', handleCarouselSlide);
+                    carousel.addEventListener('slid.bs.carousel', (e) => {
+                        activeSlideIndex = e.to;
+                    });
+                    
+                    // Load first model immediately
+                    if (modelConfigs.length > 0) {
+                        const firstConfig = modelConfigs[0];
+                        const firstContainer = document.getElementById('model-viewer-0');
+                        if (firstConfig && firstContainer) {
+                            loadModel(firstConfig, scenes[0], firstContainer, 0);
+                        }
+                    }
+                }
+                
+                console.log('3D Model Viewer: Initialization complete');
+                } catch (error) {
+                    console.error('3D Model Viewer: Fatal error during initialization:', error);
+                    // Show error message in all containers
+                    for (let i = 0; i < 3; i++) {
+                        const container = document.getElementById(`model-viewer-${i}`);
+                        if (container) {
+                            const loadingDiv = container.querySelector('.model-loading');
+                            if (loadingDiv) {
+                                loadingDiv.textContent = 'Error: Failed to load 3D viewer. Check console for details.';
+                                loadingDiv.style.color = '#ff6b6b';
+                            }
+                        }
+                    }
+                }
+            }
+            
+            // Wait for DOM to be ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init3DViewer);
+            } else {
+                // DOM is already ready
+                init3DViewer();
             }
         </script>
     </body>

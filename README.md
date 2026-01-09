@@ -13,9 +13,9 @@
 
 <div align="center">
 
-[![Badge with Logo](https://img.shields.io/badge/arXiv-2509.20607v1-red?logo=arxiv)
-](https://arxiv.org/abs/2509.20607v1)
-[![Badge with Logo](https://img.shields.io/badge/Project-Page-blue?logo=homepage)]()
+[![Badge with Logo](https://img.shields.io/badge/arXiv-2509.20607-red?logo=arxiv)
+](https://arxiv.org/abs/2509.20607)
+[![Project Page](https://img.shields.io/badge/Project-Page-blue?logo=googlechrome&logoColor=white)](https://jingwu2121.github.io/reflect3r/)
 [![Hugging Face Dataset](https://img.shields.io/badge/Hugging%20Face-Dataset-ffd21e?logo=huggingface&logoColor=yellow)](https://huggingface.co/datasets/jinggogogo/reflect3r_synthetic_data)
 [![Badge with Logo](https://img.shields.io/badge/MIT-License-green)](LICENSE)
 </div>
