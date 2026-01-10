@@ -45,6 +45,26 @@ year = {2026},
 
 ## <img src="https://api.iconify.design/material-icon-theme:settings.svg" alt="settings" width="20" height="20" > Installation
 
+1. Clone the repo
+
+```bash
+git clone --recursive https://github.com/jingwu2121/reflect3r
+cd reflect3r
+```
+
+2. Install the environment, we follow the [DUSt3R](https://github.com/naver/dust3r) environment, please also refer to DUSt3R's issue page if there is any environment issue. 
+```bash
+conda create -n reflect3r python=3.11 
+conda activate reflect3r 
+conda install pytorch torchvision pytorch-cuda=12.1 -c pytorch -c nvidia  # use the correct version of cuda for your system
+pip install -r requirements.txt
+```
+
+3. Download the model weights for the mirror detection, please also refer to [here](https://github.com/ge-xing/DAM?tab=readme-ov-file#model) 
+```bash
+wget https://download.europe.naverlabs.com/ComputerVision/DUSt3R/DUSt3R_ViTLarge_BaseDecoder_512_dpt.pth -P ./checkpoints
+```
+
 ## <img src="https://api.iconify.design/skill-icons:blender-light.svg" alt="database" width="20" height="20"> Synthetic Evaluation Data
 
 ![dataset previews](./assets/dataset.webp)
@@ -63,6 +83,8 @@ Generate the ground-truth point cloud for evaluation:
 ```bash
 python syn_gt_point_cloud_gen.py --scene_name '<SCENE TO PROCESS>' --save_root '/path/to/save'
 ```
+
+## Demo Example
 
 
 ## Acknowledgement
