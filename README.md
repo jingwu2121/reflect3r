@@ -60,10 +60,7 @@ conda install pytorch torchvision pytorch-cuda=12.1 -c pytorch -c nvidia  # use 
 pip install -r requirements.txt
 ```
 
-3. Download the model weights for the mirror detection, please also refer to [here](https://github.com/ge-xing/DAM?tab=readme-ov-file#model) 
-```bash
-wget https://download.europe.naverlabs.com/ComputerVision/DUSt3R/DUSt3R_ViTLarge_BaseDecoder_512_dpt.pth -P ./checkpoints
-```
+3. Download the model weights for the mirror detection from [here](https://hkustgz-my.sharepoint.com/personal/zxing565_connect_hkust-gz_edu_cn/_layouts/15/onedrive.aspx?viewid=712c90f5%2D05a1%2D4087%2Db912%2D7c8b36f62dbe&ga=1&id=%2Fpersonal%2Fzxing565%5Fconnect%5Fhkust%2Dgz%5Fedu%5Fcn%2FDocuments%2FCVPR25%5FDAM%2Flatest%2Epth&parent=%2Fpersonal%2Fzxing565%5Fconnect%5Fhkust%2Dgz%5Fedu%5Fcn%2FDocuments%2FCVPR25%5FDAM) and put it under the `weight` folder. This is the guide of the mirror detection's original repo: [here](https://github.com/ge-xing/DAM?tab=readme-ov-file#model). 
 
 ## <img src="https://api.iconify.design/skill-icons:blender-light.svg" alt="database" width="20" height="20"> Synthetic Evaluation Data
 

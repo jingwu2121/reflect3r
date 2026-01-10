@@ -3,7 +3,9 @@ upload_to_hf.py
 
 models/
 gen_gt_blender2opencv.py
+gen_masked_imgs.py
 
+results/
 eval_data/
 
 __pycache__/
