@@ -152,7 +152,7 @@ class Config:
 if __name__ == "__main__":
     
     args = argparse.ArgumentParser()
-    args.add_argument('--input_image_path', type=str, default='examples/example2.png')
+    args.add_argument('--input_image_path', type=str, default='examples/example1.png')
     args = args.parse_args()
     
     config = Config()
