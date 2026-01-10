@@ -2,3 +2,12 @@ synthetic_data
 upload_to_hf.py
 
 models/
+gen_gt_blender2opencv.py
+
+eval_data/
+
+__pycache__/
+
+weight/
+
+temp/
