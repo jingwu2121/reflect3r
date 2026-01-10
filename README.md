@@ -82,7 +82,14 @@ python syn_gt_point_cloud_gen.py --scene_name '<SCENE TO PROCESS>' --save_root '
 ```
 
 ## Demo Example
+We include 3 example images in the `examples` folder. 
+Run this code for the reflect3r demo. 
 
+```bash
+python reflect3r_pipeline.py --input_image_path examples/example1.png
+```
+
+The result will be saved to `results/reconstructed_point_cloud.ply`. 
 
 ## Acknowledgement
 
