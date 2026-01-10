@@ -62,18 +62,8 @@ def inference_one_image_unlabeled(image_path, model, device, save_path):
 if __name__ == "__main__":
     device = f"cuda:0"
     model = define_dinov2().eval().to(device)
-    # ffmpeg -i data/cat4_vid/cat4.mp4 data/cat4_vid/frames/frame_%04d.png
-
-    # img_root = '/home/catz0105/Code/dust3r/mirror_data_update/real_data' 
-    # img_root = '/home/catz0105/Code/dust3r/mirror_proj/synthetic' 
-    # img_root = 'data/dog2_vid' 
     img_path = 'examples/5ZKStnWn8Zo_ce7589e64ee6481dab982bb3dc59e08e_i1_2.png' 
-    save_path = 'temp/outside_mask.png'
-    # for scene in sorted(os.listdir(img_root)):
-    #     if scene == 'frames' or scene == 'dog2.mp4':
-    #         continue
-    #     img_path = os.path.join(img_root, scene, 'image.png')
-    #     save_path = os.path.join(img_root, scene, 'masks', 'outside_mask.png')
+    
     inference_one_image_unlabeled(img_path, 
-                                model, device, save_path)
+                                model, device, save_path='temp/mirror_part.png')
 
