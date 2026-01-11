@@ -78,7 +78,7 @@ Scripts for Modelling in Blender
 
 Generate the ground-truth point cloud for evaluation:
 ```bash
-python syn_gt_point_cloud_gen.py --scene_name '<SCENE TO PROCESS>' --save_root '/path/to/save'
+python data_toolkit/syn_gt_point_cloud_gen.py --scene_name '<SCENE TO PROCESS>' --save_root '/path/to/save'
 ```
 
 ## Demo Example
