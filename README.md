@@ -92,6 +92,7 @@ python reflect3r_pipeline.py --input_image_path examples/example1.png
 The result will be saved to `results/reconstructed_point_cloud.ply`. 
 
 ## Acknowledgement
+Zirui Wang is supported by an ARIA research gift grant from Meta Reality Lab.
 
 Our Code is built upon: 
 - DUSt3R: https://github.com/naver/dust3r
