@@ -32,6 +32,9 @@ Our framework also naturally extends to dynamic scenes, where each frame contain
 For quantitative evaluation, we provide a fully customizable synthetic dataset of 16 Blender scenes, each with ground-truth point clouds and camera poses.
 Extensive experiments on real-world data and synthetic data are conducted to illustrate the effectiveness of our method. 
 
+## ✨ News
+- [18.03.2026] Our synthetic evaluation dataset can now be downloaded in [Voxel51](https://huggingface.co/datasets/Voxel51/reflect3er) 
+
 ## <img src="https://api.iconify.design/vscode-icons:file-type-json.svg" alt="citation" width="20" height="20"> Citation
 If you find this code or find the paper useful for your research, please consider citing:
 ```
@@ -63,10 +66,49 @@ pip install -r requirements.txt
 3. Download the model weights for the mirror detection from [here](https://hkustgz-my.sharepoint.com/personal/zxing565_connect_hkust-gz_edu_cn/_layouts/15/onedrive.aspx?viewid=712c90f5%2D05a1%2D4087%2Db912%2D7c8b36f62dbe&ga=1&id=%2Fpersonal%2Fzxing565%5Fconnect%5Fhkust%2Dgz%5Fedu%5Fcn%2FDocuments%2FCVPR25%5FDAM%2Flatest%2Epth&parent=%2Fpersonal%2Fzxing565%5Fconnect%5Fhkust%2Dgz%5Fedu%5Fcn%2FDocuments%2FCVPR25%5FDAM) and put it under the `weight` folder. This is the guide of the mirror detection's original repo: [here](https://github.com/ge-xing/DAM?tab=readme-ov-file#model). 
 
 ## <img src="https://api.iconify.design/skill-icons:blender-light.svg" alt="database" width="20" height="20"> Synthetic Evaluation Data
-
 ![dataset previews](./assets/dataset.webp)
 
 We built a collection of synthetic Blender scenes containing mirror reflections to evaluate single-view stereo reconstruction in the context of mirror. 
+
+### <img src="https://user-images.githubusercontent.com/25985824/106288517-2422e000-6216-11eb-871d-26ad2e7b1e59.png" height="20px"> Download from Voxel51 Group Dataset
+
+Please check the instruction [here](https://huggingface.co/datasets/Voxel51/reflect3er)!
+
+#### Installation
+
+```bash
+pip install -U fiftyone openexr
+```
+
+#### Usage
+
+```python
+
+import fiftyone as fo
+from huggingface_hub import snapshot_download
+
+
+# Download the dataset snapshot to the current working directory
+
+snapshot_download(
+    repo_id="Voxel51/reflect3er", 
+    local_dir=".", 
+    repo_type="dataset"
+    )
+
+
+
+# Load dataset from current directory using FiftyOne's native format
+dataset = fo.Dataset.from_dir(
+    dataset_dir=".",  # Current directory contains the dataset files
+    dataset_type=fo.types.FiftyOneDataset,  # Specify FiftyOne dataset format
+    name="reflect3er"  # Assign a name to the dataset for identification
+)
+
+```
+
+### 🤗 Download from HF
+
 
 Download our synthetic evaluation data [here](https://huggingface.co/datasets/jinggogogo/reflect3r_synthetic_data). 
 - Download the [original blender scenes](https://huggingface.co/datasets/jinggogogo/reflect3r_synthetic_data/tree/main/blender_source_files)
