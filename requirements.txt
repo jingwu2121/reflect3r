@@ -12,3 +12,5 @@ tensorboard
 pyglet<2
 huggingface-hub[torch]>=0.22
 open3d
+imageio
+OpenEXR
