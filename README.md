@@ -33,6 +33,7 @@ For quantitative evaluation, we provide a fully customizable synthetic dataset o
 Extensive experiments on real-world data and synthetic data are conducted to illustrate the effectiveness of our method. 
 
 ## ✨ News
+- [28.07.2026] Fix the Croco model issues and added a docker env for the reproduction. 
 - [18.03.2026] Our synthetic evaluation dataset can now be downloaded in [Voxel51](https://huggingface.co/datasets/Voxel51/reflect3er) 
 
 ## <img src="https://api.iconify.design/vscode-icons:file-type-json.svg" alt="citation" width="20" height="20"> Citation
@@ -64,6 +65,23 @@ pip install -r requirements.txt
 ```
 
 3. Download the model weights for the mirror detection from [here](https://hkustgz-my.sharepoint.com/personal/zxing565_connect_hkust-gz_edu_cn/_layouts/15/onedrive.aspx?viewid=712c90f5%2D05a1%2D4087%2Db912%2D7c8b36f62dbe&ga=1&id=%2Fpersonal%2Fzxing565%5Fconnect%5Fhkust%2Dgz%5Fedu%5Fcn%2FDocuments%2FCVPR25%5FDAM%2Flatest%2Epth&parent=%2Fpersonal%2Fzxing565%5Fconnect%5Fhkust%2Dgz%5Fedu%5Fcn%2FDocuments%2FCVPR25%5FDAM) and put it under the `weight` folder. This is the guide of the mirror detection's original repo: [here](https://github.com/ge-xing/DAM?tab=readme-ov-file#model). 
+
+### 🐳 Using docker for easier reproduction
+
+I also provide a docker image with all the dependencies installed for an easier reproduction. 
+
+```bash
+docker pull jingwu2121/reflect3r:latest
+
+docker run --gpus all -it --name reflect3r-cuda118 \ 
+-w /workspace  \
+  jingwu2121/reflect3r:latest /bin/bash
+
+cd /workspace/reflect3r
+
+# Run our example
+python reflect3r_pipeline.py --input_image_path examples/example1.png
+```
 
 ## <img src="https://api.iconify.design/skill-icons:blender-light.svg" alt="database" width="20" height="20"> Synthetic Evaluation Data
 ![dataset previews](./assets/dataset.webp)
