@@ -160,18 +160,18 @@ Our Code is built upon:
 The 16 Blender scenes are collected from online websites, we rearranged and cleaned the scenes and modelled a mirror on top of them for research purpose. Here we listed all the original download links for these scenes, we thank these designers for their great work.
 - Archiviz: https://download.blender.org/demo/cycles/flat-archiviz.blend
 - Bedroom: https://www.cgtrader.com/free-3d-models/interior/bedroom/the-bed-room
-- Blue bathroom: https://www.blenderkit.com/asset-gallery-detail/b6876684-5516-4973-b4a4-e500c49899b6/
+- Blue bathroom: https://www.blendkit.com/asset-gallery-detail/b6876684-5516-4973-b4a4-e500c49899b6/
 - Computer room: https://www.cgtrader.com/free-3d-models/interior/interior-office/a-room-9e4a1359-ef9d-460e-9091-b78c36961e09
-- Cozy living room: https://www.blenderkit.com/asset-gallery-detail/a9267e7e-7cd7-4d5d-b479-8bf8fff2eddf/
-- Greenhouse: https://www.blenderkit.com/asset-gallery-detail/751fbc52-ab6e-475a-b9e0-6ee99a8f45bb/
+- Cozy living room: https://www.blendkit.com/asset-gallery-detail/a9267e7e-7cd7-4d5d-b479-8bf8fff2eddf/
+- Greenhouse: https://www.blendkit.com/asset-gallery-detail/751fbc52-ab6e-475a-b9e0-6ee99a8f45bb/
 - Gym: https://www.cgtrader.com/free-3d-models/architectural/other/high-quality-modern-indoor-gym
 - Livingroom contemporary: https://www.cgtrader.com/free-3d-models/interior/living-room/living-room-contemporary-57e8df25-0df2-4080-99ea-e2e7f0a7bb7a
 - Loft: https://www.cgtrader.com/free-3d-models/interior/living-room/project-b-54e79cb8-6763-471e-9d42-1e7e6cf01e14
 - MiniGym: https://www.cgtrader.com/free-3d-models/interior/other/mini-gym-blender-scene
-- Minimal interior: https://www.blenderkit.com/asset-gallery-detail/c675b544-6e32-42fd-b840-f2fdd964f610/
+- Minimal interior: https://www.blendkit.com/asset-gallery-detail/c675b544-6e32-42fd-b840-f2fdd964f610/
 - Modern living room: https://www.cgtrader.com/free-3d-models/interior/living-room/modern-living-room-1179d95e-c242-4ff2-b1b9-85f7373c139e
 - Livingroom: https://www.cgtrader.com/free-3d-models/interior/living-room/living-room-interior-for-blender-cycles-ready
 - Scandinavian: https://www.cgtrader.com/free-3d-models/interior/other/free-dining-set-scandinavian-style
 - Sunlight: https://www.cgtrader.com/free-3d-models/interior/living-room/sunlight-and-concrete-blender-interior
-- Terrazzo: https://www.blenderkit.com/asset-gallery-detail/893df9db-a9e4-46da-9d4a-06be1045d73b/
+- Terrazzo: https://www.blendkit.com/asset-gallery-detail/893df9db-a9e4-46da-9d4a-06be1045d73b/
 
